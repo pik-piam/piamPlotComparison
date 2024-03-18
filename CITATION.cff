@@ -1,14 +1,16 @@
 cff-version: 1.2.0
 message: If you use this software, please cite it using the metadata from this file.
 type: software
-title: 'piamplotcomparison: Create comparison plots for your model results'
-version: 0.0.2
-date-released: '2024-03-18'
+title: 'piamPlotComparison: Create comparison plots for your model results'
+version: 0.0.2.9003
+date-released: '2024-03-19'
 abstract: A frameworks to create comparison plots for your model results.
 authors:
 - family-names: Benke
   given-names: Falk
   email: benke@pik-potsdam.de
+- family-names: Schoetz
+  given-names: Christof
 license: LGPL-3.0
 repository-code: https://github.com/pik-piam/piamplotcomparison
 

@@ -124,7 +124,7 @@ compareScenarios2 <- function(
   envir = new.env(),
   quiet = FALSE,
   ...
-  ) {
+) {
   # Set yaml parameters and convert relative to absolute paths.
   yamlParams <- c(
     list(
@@ -154,7 +154,7 @@ compareScenarios2 <- function(
   # copy the template directory from the package to the outputDir because rmarkdown writes to the folder
   # containing the template.
   templateInOutputDir <- file.path(outputDir, "compareScenarios2", "cs2_main.Rmd")
-  file.copy(system.file("markdown/compareScenarios2/", package = "remind2"),
+  file.copy(system.file("markdown/compareScenarios2/", package = "piamPlotComparison"),
             outputDir, recursive = TRUE)
 
   rmarkdown::render(
@@ -172,7 +172,7 @@ compareScenarios2 <- function(
 # Copies the CompareScenarios2-Rmds to the specified location and modifies
 # their YAML header according to \code{yamlParams}.
 .compareScenarios2Rmd <- function(yamlParams, outputDir, outputFile) {
-  pathMain <- system.file("markdown/compareScenarios2/cs2_main.Rmd", package = "remind2")
+  pathMain <- system.file("markdown/compareScenarios2/cs2_main.Rmd", package = "piamPlotComparison")
   linesMain <- readLines(pathMain)
   delimiters <- grep("^(---|\\.\\.\\.)\\s*$", linesMain)
   headerMain <- linesMain[(delimiters[1]):(delimiters[2])]
@@ -192,7 +192,7 @@ compareScenarios2 <- function(
   pathDir <- file.path(outputDir, paste0(outputFile, "_Rmd"))
   if (!dir.exists(pathDir)) dir.create(pathDir)
   dirFiles <- dir(
-    system.file("markdown/compareScenarios2", package = "remind2"),
+    system.file("markdown/compareScenarios2", package = "piamPlotComparison"),
     full.names = TRUE)
   rmdDirFiles <- grep(
     dirFiles,
@@ -204,6 +204,6 @@ compareScenarios2 <- function(
     path = file.path(pathDir, "cs2_main.Rmd"),
     template = system.file(
       "markdown/compareScenarios2/cs2_main.Rmd",
-      package = "remind2"),
+      package = "piamPlotComparison"),
     include_yaml = FALSE)
 }

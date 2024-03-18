@@ -1,8 +1,8 @@
 # Create comparison plots for your model results
 
-R package **piamplotcomparison**, version **0.0.2**
+R package **piamPlotComparison**, version **0.0.2.9003**
 
-[![CRAN status](https://www.r-pkg.org/badges/version/piamplotcomparison)](https://cran.r-project.org/package=piamplotcomparison)  [![R build status](https://github.com/pik-piam/piamplotcomparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamplotcomparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamplotcomparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamplotcomparison) 
+[![CRAN status](https://www.r-pkg.org/badges/version/piamPlotComparison)](https://cran.r-project.org/package=piamPlotComparison)  [![R build status](https://github.com/pik-piam/piamplotcomparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamplotcomparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamplotcomparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamplotcomparison) 
 
 ## Purpose and Functionality
 
@@ -21,7 +21,7 @@ The additional repository can be made available permanently by adding the line a
 After that the most recent version of the package can be installed using `install.packages`:
 
 ```r 
-install.packages("piamplotcomparison")
+install.packages("piamPlotComparison")
 ```
 
 Package updates can be installed using `update.packages` (make sure that the additional repository has been added before running that command):
@@ -30,24 +30,32 @@ Package updates can be installed using `update.packages` (make sure that the add
 update.packages()
 ```
 
+## Tutorial
+
+The package comes with a vignette describing the basic functionality of the package and how to use it. You can load it with the following command (the package needs to be installed):
+
+```r
+vignette("compareScenarios2") # compareScenarios2
+```
+
 ## Questions / Problems
 
 In case of questions / problems please contact Falk Benke <benke@pik-potsdam.de>.
 
 ## Citation
 
-To cite package **piamplotcomparison** in publications use:
+To cite package **piamPlotComparison** in publications use:
 
-Benke F (2024). _piamplotcomparison: Create comparison plots for your model results_. R package version 0.0.2, <https://github.com/pik-piam/piamplotcomparison>.
+Benke F, Schoetz C (2024). _piamPlotComparison: Create comparison plots for your model results_. R package version 0.0.2.9003, <https://github.com/pik-piam/piamplotcomparison>.
 
 A BibTeX entry for LaTeX users is
 
  ```latex
 @Manual{,
-  title = {piamplotcomparison: Create comparison plots for your model results},
-  author = {Falk Benke},
+  title = {piamPlotComparison: Create comparison plots for your model results},
+  author = {Falk Benke and Christof Schoetz},
   year = {2024},
-  note = {R package version 0.0.2},
+  note = {R package version 0.0.2.9003},
   url = {https://github.com/pik-piam/piamplotcomparison},
 }
 ```
