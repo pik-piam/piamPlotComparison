@@ -223,23 +223,6 @@ if (!is.null(params$reg)) {
 ```
 
 
-```{r Corrections}
-# TODO: Should not be done in compareScenarios.
-
-# Change unit million US$2005/yr to billion US$2005/yr.
-# Relevant for ARIADNE historical EUR GDP|PPP.
-data <-
-  bind_rows(
-    data %>% filter(!unit %in% c("million US$2005/yr")),
-    data %>%
-      filter(unit == "million US$2005/yr") %>%
-      mutate(
-        unit = "billion US$2005/yr",
-        value = value / 1000)
-  )
-```
-
-
 ```{r reference models for historical}
 # Sometimes it is necessary to choose a single model for the historical data,
 # e.g., calculating per capita variables. These reference models are defined here.

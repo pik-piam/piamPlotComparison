@@ -22,8 +22,10 @@ Imports:
     yaml,
     ymlthis
 Suggests:
+    gridExtra,
     kableExtra,
-    testthat
+    testthat,
+    tidyverse
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
