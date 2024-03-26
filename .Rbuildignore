@@ -1,0 +1,12 @@
+^\.buildlibrary$
+^\.pre-commit-config\.yaml$
+^Makefile$
+^workflow$
+^codecov\.yml$
+^\.github$
+^.*CITATION.cff$
+^.*\.Rproj$
+^\.Rproj\.user$
+^.lintr$
+^tests/.lintr$
+^vignettes/.lintr$

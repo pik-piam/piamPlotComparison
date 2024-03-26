@@ -1,0 +1,21 @@
+# Summary
+
+
+## GHG Emissions
+
+```{r GHG emissions}
+tot <- "Emi|GHG"
+
+items <- c(
+  "Emi|CO2|Energy",
+  "Emi|CO2|Industrial Processes",
+  "Emi|CO2|Land-Use Change",
+  "Emi|GHG|CH4",
+  "Emi|GHG|N2O",
+  "Emi|GHG|F-Gases",
+  "Emi|CO2|non-BECCS CDR")
+
+showAreaAndBarPlots(data, items, tot, scales = "fixed")
+
+```
+
