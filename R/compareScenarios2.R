@@ -74,6 +74,10 @@
 #'     \code{NULL} or \code{character(n)}.
 #'     Default: \code{NULL}.
 #'     Path to a *.Rmd-file that may be included as additional section.}
+#'   \item{\code{preprocessingFilePath}}{
+#'     \code{NULL} or \code{character(n)}.
+#'     Default: \code{NULL}.
+#'     Path to a *.Rmd-file with preprocessing code.}
 #'   \item{\code{mainReg}}{
 #'     \code{character(1)}.
 #'     Default: \code{"World"}.
@@ -140,6 +144,9 @@ compareScenarios2 <- function(
   }
   if (!is.null(yamlParams[["userSectionPath"]])) {
     yamlParams$userSectionPath <- normalizePath(yamlParams$userSectionPath, mustWork = TRUE)
+  }
+  if (!is.null(yamlParams[["preprocessingFilePath"]])) {
+    yamlParams$preprocessingFilePath <- normalizePath(yamlParams$preprocessingFilePath, mustWork = TRUE)
   }
 
   outputFormat <- tolower(outputFormat)[[1]]
