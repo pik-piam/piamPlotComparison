@@ -1,6 +1,6 @@
-#' Render CompareScenarios2
+#' Render CompareScenarios
 #'
-#' Renders the *.Rmd-files associated to CompareScenarios2. In the Rmds,
+#' Renders the *.Rmd-files associated to CompareScenarios. In the Rmds,
 #' scenario- and historical .mif-files are loaded. Then plots are created from
 #' this data. The result may be rendered to PDF or HTML. Alternatively one can
 #' choose Rmd as output format and obtain a copy of the *.Rmd-files.
@@ -36,6 +36,9 @@
 #'     Path to default.cfg, which creates a \code{cfg} object with default
 #'     values. If provided, some information gathered from this file is
 #'     shown at the beginning of the output document.}
+#'   \item{\code{docTitle}}{
+#'    \code{character(n) or NULL}.
+#'    Title of the document. Defaults to 'Compare Scenarios'}
 #'   \item{\code{yearsScen}}{
 #'     \code{numeric(n)}.
 #'     Default: \code{c(seq(2005, 2060, 5), seq(2070, 2100, 10))}.
@@ -95,12 +98,12 @@
 #' @examples
 #' \dontrun{
 #' # Simple use. Creates PDF:
-#' compareScenarios2(
+#' compareScenarios(
 #'   mifScen = c("path/to/Base.mif", "path/to/NDC.mif"),
 #'   mifHist = "path/to/historical.mif",
-#'   outputFile = "CompareScenarios2Example")
+#'   outputFile = "CompareScenariosExample")
 #' # More complex use. Creates folder with Rmds:
-#' compareScenarios2(
+#' compareScenarios(
 #'   mifScen = c(ScenarioName1 = "path/to/scen1.mif", ScenarioName2 = "path/to/scen2.mif"),
 #'   mifHist = "path/to/historical.mif",
 #'   cfgScen = c("path/to/scen1/config.RData", "path/to/scen2/config.RData"),
@@ -112,7 +115,7 @@
 #'   sections = c(0, 2, 3, 99),
 #'   userSectionPath = "path/to/myPlots.Rmd")
 #' # Use in development. Load data into global environment:
-#' compareScenarios2(
+#' compareScenarios(
 #'   mifScen = c("path/to/scen1.mif", "path/to/scen2.mif"),
 #'   mifHist = "path/to/historical.mif",
 #'   outputFile = format(Sys.time(), "cs2_load_%Y%m%d-%H%M%S"),
@@ -120,10 +123,10 @@
 #'   envir = globalenv())
 #' }
 #' @export
-compareScenarios2 <- function(
+compareScenarios <- function(
   mifScen, mifHist,
   outputDir = getwd(),
-  outputFile = "CompareScenarios2",
+  outputFile = "CompareScenarios",
   outputFormat = "PDF",
   envir = new.env(),
   quiet = FALSE,
@@ -160,8 +163,8 @@ compareScenarios2 <- function(
 
   # copy the template directory from the package to the outputDir because rmarkdown writes to the folder
   # containing the template.
-  templateInOutputDir <- file.path(outputDir, "compareScenarios2", "cs2_main.Rmd")
-  file.copy(system.file("markdown/compareScenarios2/", package = "piamPlotComparison"),
+  templateInOutputDir <- file.path(outputDir, "markdown", "cs2_main.Rmd")
+  file.copy(system.file("markdown", package = "piamPlotComparison"),
             outputDir, recursive = TRUE)
 
   rmarkdown::render(
@@ -173,13 +176,13 @@ compareScenarios2 <- function(
     params = yamlParams,
     envir = envir,
     quiet = quiet)
-  unlink(file.path(outputDir, "compareScenarios2"), recursive = TRUE)
+  unlink(file.path(outputDir, "markdown"), recursive = TRUE)
 }
 
-# Copies the CompareScenarios2-Rmds to the specified location and modifies
+# Copies the CompareScenarios-Rmds to the specified location and modifies
 # their YAML header according to \code{yamlParams}.
 .compareScenarios2Rmd <- function(yamlParams, outputDir, outputFile) {
-  pathMain <- system.file("markdown/compareScenarios2/cs2_main.Rmd", package = "piamPlotComparison")
+  pathMain <- system.file("markdown/cs2_main.Rmd", package = "piamPlotComparison")
   linesMain <- readLines(pathMain)
   delimiters <- grep("^(---|\\.\\.\\.)\\s*$", linesMain)
   headerMain <- linesMain[(delimiters[1]):(delimiters[2])]
@@ -199,7 +202,7 @@ compareScenarios2 <- function(
   pathDir <- file.path(outputDir, paste0(outputFile, "_Rmd"))
   if (!dir.exists(pathDir)) dir.create(pathDir)
   dirFiles <- dir(
-    system.file("markdown/compareScenarios2", package = "piamPlotComparison"),
+    system.file("markdown/", package = "piamPlotComparison"),
     full.names = TRUE)
   rmdDirFiles <- grep(
     dirFiles,
@@ -210,7 +213,7 @@ compareScenarios2 <- function(
     newYaml,
     path = file.path(pathDir, "cs2_main.Rmd"),
     template = system.file(
-      "markdown/compareScenarios2/cs2_main.Rmd",
+      "markdown/cs2_main.Rmd",
       package = "piamPlotComparison"),
     include_yaml = FALSE)
 }

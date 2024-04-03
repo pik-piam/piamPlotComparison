@@ -1,5 +1,5 @@
 ---
-title: "Compare Scenarios 2"
+title: "`r params$docTitle`"
 date: "`r format(Sys.Date())`"
 output:
   pdf_document:
@@ -18,6 +18,7 @@ output:
     number_sections: yes
 geometry: "a4paper,landscape,left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm,footnotesep=0.0cm,footskip=0.1cm"
 params:
+  docTitle: "Compare Scenarios"
   mifScen: ""
   mifScenNames: null
   cfgScen: null
