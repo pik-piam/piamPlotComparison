@@ -46,7 +46,7 @@ In case of questions / problems please contact Falk Benke <benke@pik-potsdam.de>
 
 To cite package **piamPlotComparison** in publications use:
 
-Benke F, Schoetz C (2024). _piamPlotComparison: Create comparison plots for your model results_. R package version 0.0.4, <https://github.com/pik-piam/piamplotcomparison>.
+Benke F, Schoetz C (2024). _piamPlotComparison: Create comparison plots for your model results_. R package version 0.0.4, <https://github.com/pik-piam/piamPlotComparison>.
 
 A BibTeX entry for LaTeX users is
 
@@ -56,6 +56,6 @@ A BibTeX entry for LaTeX users is
   author = {Falk Benke and Christof Schoetz},
   year = {2024},
   note = {R package version 0.0.4},
-  url = {https://github.com/pik-piam/piamplotcomparison},
+  url = {https://github.com/pik-piam/piamPlotComparison},
 }
 ```
