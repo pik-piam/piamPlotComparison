@@ -155,5 +155,5 @@ compareScenarios(
 }
 }
 \author{
-Christof Schoetz
+Christof Schoetz, Falk Benke
 }

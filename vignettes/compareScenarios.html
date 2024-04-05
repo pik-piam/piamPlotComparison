@@ -10,11 +10,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Christof Schötz" />
+<meta name="author" content="Falk Benke" />
 
-<meta name="date" content="2022-03-11" />
+<meta name="date" content="2024-04-05" />
 
-<title>compareScenarios2</title>
+<title>compareScenarios</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -338,9 +338,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">compareScenarios2</h1>
-<h4 class="author">Christof Schötz</h4>
-<h4 class="date">2022-03-11</h4>
+<h1 class="title toc-ignore">compareScenarios</h1>
+<h4 class="author">Falk Benke</h4>
+<h4 class="date">2024-04-05</h4>
 
 
 <div id="TOC">
@@ -399,9 +399,8 @@ Info</a></li>
 
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
-<p>The function <code>compareScenarios2()</code> (<em>cs2</em> for
-short) of the <code>remind2</code> package can be used to visually
-compare the results of multiple runs of the IAM <a href="https://github.com/remindmodel/remind">REMIND</a></p>
+<p>The function <code>compareScenarios()</code> can be used to visually
+compare the results of multiple runs of IAMs like <a href="https://github.com/remindmodel/remind">REMIND</a> or <a href="https://github.com/pik-piam/edgeTransport">EDGE-T</a>.</p>
 <p>It can be called via the <a href="https://github.com/remindmodel/remind/blob/develop/output.R"><code>remind/output.R</code></a>
 script: Execute <code>Rscript output.R</code> in the REMIND folder,
 select <code>Comparison across runs</code> and then
@@ -412,27 +411,28 @@ remind folder after runs are completed, i.e., the files
 Additionally it reads historical data from a <code>historical.mif</code>
 in one of the run output folders. Using this data, a document containing
 many plots is created and written as a PDF- or HTML-file. See
-<code>?remind2::compareScenarios2</code> for information on how to call
-the function directly with the appropriate arguments.</p>
-<p>Internally, <code>compareScenarios2()</code> calls
+<code>?piamPlotComparison::compareScenarios</code> for information on
+how to call the function directly with the appropriate arguments.</p>
+<p>Internally, <code>compareScenarios()</code> calls
 <code>rmarkdown::render()</code> on certain Rmarkdown-files (Rmd-files).
 Rmd-files may contain R-code (e.g., for creating plots, creating tables)
 as well as descriptive text (in this case, mostly section titles). The
 main Rmd-files to be rendered are part of the remind2-package. Some
 optional section may be placed in the REMIND repository at <a href="https://github.com/remindmodel/remind/tree/develop/scripts/cs2"><code>remind/scripts/cs2/</code></a>.
 In the development state of the package, the main Rmd-files can be found
-in the folder <a href="https://github.com/pik-piam/remind2/tree/master/inst/markdown/compareScenarios2"><code>remind2/inst/markdown/compareScenarios2/</code></a>.
-To be more precises, <code>rmarkdown::render()</code> is called on
-<code>cs2_main.Rmd</code> in this folder, which includes other Rmd-files
-- one for each section of the output document. The loading and
-preprocessing of data happens in <code>cs2_main.Rmd</code>; the section
-Rmd-files mostly call plot functions.</p>
+in the folder <a href="https://github.com/pik-piam/remind2/tree/master/inst/compareScenarios"><code>remind2/inst/compareScenarios/</code></a>.
+To be more precise, <code>rmarkdown::render()</code> is called on
+<code>cs_main.Rmd</code> of <a href="https://github.com/pik-piam/piamPlotComparison/tree/master/inst/compareScenarios">this
+library</a>, which includes other Rmd-files - one for each section of
+the output document. The loading and preprocessing of data happens in
+<code>cs_main.Rmd</code>; the section Rmd-files mostly call plot
+functions.</p>
 <p>Aside from HTML- and PDF-documents as output,
-<code>compareScenarios2()</code> also allows to obtain a copy of the
+<code>compareScenarios()</code> also allows to obtain a copy of the
 Rmd-files needed to create these outputs (by setting the argument
 <code>outputFormat = &quot;Rmd&quot;</code>). Rendering the resulting Rmd-files to
 PDF or HTML yields the same documents as calls to
-<code>compareScenarios2()</code> with <code>outputFormat = &quot;PDF&quot;</code>
+<code>compareScenarios()</code> with <code>outputFormat = &quot;PDF&quot;</code>
 or <code>&quot;HTML&quot;</code>. The advantage of being able to access these
 Rmd-files is the possibility to change the plotting code without
 changing the code of the <code>remind2</code>-package. Moreover,
@@ -440,9 +440,10 @@ Rmd-files can be used interactively in RStudio.</p>
 </div>
 <div id="usage" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Usage</h1>
-<p><code>compareScenarios2()</code> with different predefined settings
+<p><code>compareScenarios()</code> with different predefined settings
 can be called via <code>Rscript output.R</code>. It can also be called
-directly as a function of the R-package <code>remind2</code>.</p>
+directly as a function of the R-package
+<code>piamPlotComparison</code>.</p>
 <div id="output.r-and-profiles" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> output.R and
 Profiles</h2>
