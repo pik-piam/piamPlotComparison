@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Falk Benke" />
+<meta name="author" content="Christof Schötz" />
 
 <meta name="date" content="2024-04-05" />
 
@@ -339,7 +339,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">compareScenarios</h1>
-<h4 class="author">Falk Benke</h4>
+<h4 class="author">Christof Schötz</h4>
 <h4 class="date">2024-04-05</h4>
 
 
@@ -449,7 +449,7 @@ directly as a function of the R-package
 Profiles</h2>
 <div id="output.r" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> output.R</h3>
-<p>Typically we want to compare the results of some REMIND runs which
+<p>Typically, we want to compare the results of some REMIND runs which
 were created in the <code>remind/output/</code> folder of a clone of the
 REMIND repository. Assume such runs are available and, in particular,
 the
@@ -460,7 +460,7 @@ of the runs of interest exist. Go to the REMIND directory
 Select the runs of interest. We then can choose a filename prefix for
 the output file if we want. Next, choose a slurm mode, e.g.,
 <code>short</code> (the job will run for less than 1 hour, usually
-something like 20min). Finally we can choose a cs2-profile. Standard
+something like 20min). Finally, we can choose a cs2-profile. Standard
 profiles for the selected runs are colored. After choosing one or more
 profiles, the respective slurm jobs will be started. An HTML- or
 PDF-file will be created. If something goes wrong, take a look at the
@@ -469,15 +469,15 @@ PDF-file will be created. If something goes wrong, take a look at the
 <div id="profiles" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Profiles</h3>
 <p>A cs2-profile is a set of arguments for
-<code>compareScenarios2()</code>. There are different profiles for a
+<code>compareScenarios()</code>. There are different profiles for a
 comparison on the 12 main REMIND regions (<code>H12</code>,
 <code>H12-short</code>), or on the European regions (<code>EU27</code>,
 <code>EU27-short</code>) for 21-region-runs. The suffix
 <code>-short</code> indicates that only periods up to 2050 are
 considered. The <code>default</code>-profiles just call
-<code>compareScenarios2()</code> with the default arguments as described
-in <code>?remind2::compareScenarios2</code>. The available profiles are
-stored in <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/profiles.json"><code>remind/scripts/cs2/profiles.json</code></a>.
+<code>compareScenarios()</code> with the default arguments as described
+in <code>?piamPlotComparison::compareScenarios</code>. The available
+profiles are stored in <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/profiles.json"><code>remind/scripts/cs2/profiles.json</code></a>.
 Take a look at this file (open in text editor) to see the definition of
 each profile.</p>
 </div>
@@ -486,9 +486,9 @@ each profile.</p>
 Profiles</h3>
 <p>To change a profile or add a new profile, just edit <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/profiles.json"><code>remind/scripts/cs2/profiles.json</code></a>.
 Read the <code>_DESCRIPTION_</code> in that file. Every argument
-(including YAML-arguments) to <code>compareScenarios2()</code> can be
-set or changed.</p>
-<p>We can create our own cs2-report: First we create an
+(including YAML-arguments) to <code>compareScenarios()</code> can be set
+or changed.</p>
+<p>We can create our own cs-report: First, we create an
 “section”-Rmd-file, similar to <code>cs2_NN_XXXX.Rmd</code> in <a href="https://github.com/pik-piam/remind2/tree/master/inst/markdown/compareScenarios2"><code>remind2/inst/markdown/compareScenarios2</code></a>.
 It typically contains calls to plot-function using an R-object called
 <code>data</code>. This objects stores all the information read from the

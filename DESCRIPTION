@@ -9,7 +9,7 @@ Authors@R: c(
   )
 Description: A frameworks to create comparison plots for your model results.
 License: LGPL-3
-URL: https://github.com/pik-piam/piamplotcomparison
+URL: https://github.com/pik-piam/piamPlotComparison
 Imports:
     dplyr,
     knitr,

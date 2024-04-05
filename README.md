@@ -2,7 +2,7 @@
 
 R package **piamPlotComparison**, version **0.0.4**
 
-[![CRAN status](https://www.r-pkg.org/badges/version/piamPlotComparison)](https://cran.r-project.org/package=piamPlotComparison)  [![R build status](https://github.com/pik-piam/piamplotcomparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamplotcomparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamplotcomparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamplotcomparison) 
+[![CRAN status](https://www.r-pkg.org/badges/version/piamPlotComparison)](https://cran.r-project.org/package=piamPlotComparison)  [![R build status](https://github.com/pik-piam/piamPlotComparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamPlotComparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamPlotComparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamPlotComparison) [![r-universe](https://pik-piam.r-universe.dev/badges/piamPlotComparison)](https://pik-piam.r-universe.dev/builds)
 
 ## Purpose and Functionality
 
