@@ -1,5 +1,5 @@
 ---
-title: "compareScenarios and REMIND"
+title: "compareScenarios"
 author: "Christof Schötz"
 date: "2024-04-05"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{compareScenariosREMIND}
+  %\VignetteIndexEntry{compareScenarios}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

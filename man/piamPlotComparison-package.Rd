@@ -11,7 +11,7 @@ A frameworks to create comparison plots for your model results.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/pik-piam/piamplotcomparison}
+  \item \url{https://github.com/pik-piam/piamPlotComparison}
 }
 
 }
