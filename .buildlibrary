@@ -1,0 +1,8 @@
+ValidationKey: '79272'
+AutocreateReadme: yes
+AcceptedWarnings:
+- 'Warning: package ''.*'' was built under R version'
+- 'Warning: namespace ''.*'' is not available and has been replaced'
+AcceptedNotes: All declared Imports should be used.
+allowLinterWarnings: yes
+enforceVersionUpdate: no

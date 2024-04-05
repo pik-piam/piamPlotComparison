@@ -1,14 +1,32 @@
 Type: Package
-Package: piamplotcomparison
+Package: piamPlotComparison
 Title: Create comparison plots for your model results
-Version: 0.0.1
-Date: 2024-03-18
-Authors@R:
-    person("Falk", "Benke", , "benke@pik-potsdam.de", role = c("aut", "cre"))
-Description: Create comparison plots for your model results
+Version: 0.0.4
+Date: 2024-04-05
+Authors@R: c(
+    person("Falk", "Benke", , "benke@pik-potsdam.de", role = c("aut", "cre")),
+    person("Christof", "Schoetz", role = "aut")
+  )
+Description: A frameworks to create comparison plots for your model results.
 License: LGPL-3
 URL: https://github.com/pik-piam/piamplotcomparison
+Imports:
+    dplyr,
+    knitr,
+    magclass,
+    mip (>= 0.148.11),
+    quitte,
+    rlang,
+    rmarkdown,
+    tidyr,
+    yaml,
+    ymlthis
 Suggests:
-    testthat
+    gridExtra,
+    kableExtra,
+    testthat,
+    tidyverse
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
