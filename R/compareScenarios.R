@@ -5,6 +5,13 @@
 #' this data. The result may be rendered to PDF or HTML. Alternatively one can
 #' choose Rmd as output format and obtain a copy of the *.Rmd-files.
 #'
+#' @param projectLibrary \code{NULL} or \code{character(n)}. Default: \code{NULL}.
+#'   An R library containing Rmd files that could be included. You can further filter
+#'   the sections to be rendered using the \code{sections} YAML parameter.
+#'   Expects the Rmd files must be placed in a folder \code{inst/compareScenarios}.
+#'   Files must have the format \code{cs_[NUMBER]_*.Rmd} to be considered.
+#'   If the folder contains a file \code{preprocessing.Rmd}, it will be executed
+#'   before rendering the sections.
 #' @param mifScen \code{character(n)}, optionally named. Paths to scenario mifs.
 #'   If the vector has names, those are used to refer to the scenarios in the
 #'   output file.
@@ -66,10 +73,7 @@
 #'   \item{\code{sections}}{
 #'     \code{character(n) or numeric(n) or NULL}.
 #'     Default: \code{"all"}.
-#'     Names or numbers of sections to include. For names subset of
-#'     \code{c("00_info", "01_summary", "02_macro", "03_emissions",
-#'     "04_energy_supply", "05_energy_demand", "06_energy_services",
-#'     "07_climate", "08_sdp", "09_carbon_management", "99_further_info")}.
+#'     Names or numbers of sections to include.
 #'     Use \code{"all"} to include all available sections.
 #'     Use \code{NULL} to not include any section
 #'     (useful in combination with parameter \code{envir}).}
@@ -77,10 +81,6 @@
 #'     \code{NULL} or \code{character(n)}.
 #'     Default: \code{NULL}.
 #'     Path to a *.Rmd-file that may be included as additional section.}
-#'   \item{\code{preprocessingFilePath}}{
-#'     \code{NULL} or \code{character(n)}.
-#'     Default: \code{NULL}.
-#'     Path to a *.Rmd-file with preprocessing code.}
 #'   \item{\code{mainReg}}{
 #'     \code{character(1)}.
 #'     Default: \code{"World"}.
@@ -94,7 +94,7 @@
 #'     Default: \code{TRUE}.
 #'     Show warnings in output?}
 #' }
-#' @author Christof Schoetz
+#' @author Christof Schoetz, Falk Benke
 #' @examples
 #' \dontrun{
 #' # Simple use. Creates PDF:
@@ -125,6 +125,7 @@
 #' @export
 compareScenarios <- function(
   mifScen, mifHist,
+  projectLibrary = NULL,
   outputDir = getwd(),
   outputFile = "CompareScenarios",
   outputFormat = "PDF",
@@ -148,9 +149,6 @@ compareScenarios <- function(
   if (!is.null(yamlParams[["userSectionPath"]])) {
     yamlParams$userSectionPath <- normalizePath(yamlParams$userSectionPath, mustWork = TRUE)
   }
-  if (!is.null(yamlParams[["preprocessingFilePath"]])) {
-    yamlParams$preprocessingFilePath <- normalizePath(yamlParams$preprocessingFilePath, mustWork = TRUE)
-  }
 
   outputFormat <- tolower(outputFormat)[[1]]
   if (outputFormat == "pdf") {
@@ -158,14 +156,19 @@ compareScenarios <- function(
   } else if (outputFormat == "html") {
     outputFormat <- "html_document"
   } else if (outputFormat == "rmd") {
-    return(.compareScenarios2Rmd(yamlParams, outputDir, outputFile))
+    return(.compareScenarios2Rmd(projectLibrary, yamlParams, outputDir, outputFile))
   }
 
-  # copy the template directory from the package to the outputDir because rmarkdown writes to the folder
-  # containing the template.
-  templateInOutputDir <- file.path(outputDir, "markdown", "cs2_main.Rmd")
-  file.copy(system.file("markdown", package = "piamPlotComparison"),
+  # copy the template directory from the package to the outputDir because
+  # rmarkdown writes to the folder containing the template.
+  templateInOutputDir <- file.path(outputDir, "compareScenarios", "cs_main.Rmd")
+  file.copy(system.file("compareScenarios", package = "piamPlotComparison"),
             outputDir, recursive = TRUE)
+
+  if (!is.null(projectLibrary)) {
+    file.copy(system.file("compareScenarios", package = projectLibrary),
+              outputDir, recursive = TRUE)
+  }
 
   rmarkdown::render(
     templateInOutputDir,
@@ -175,14 +178,16 @@ compareScenarios <- function(
     output_format = outputFormat,
     params = yamlParams,
     envir = envir,
-    quiet = quiet)
-  unlink(file.path(outputDir, "markdown"), recursive = TRUE)
+    quiet = quiet
+  )
+
+  unlink(file.path(outputDir, "compareScenarios"), recursive = TRUE)
 }
 
 # Copies the CompareScenarios-Rmds to the specified location and modifies
 # their YAML header according to \code{yamlParams}.
-.compareScenarios2Rmd <- function(yamlParams, outputDir, outputFile) {
-  pathMain <- system.file("markdown/cs2_main.Rmd", package = "piamPlotComparison")
+.compareScenarios2Rmd <- function(projectLibrary, yamlParams, outputDir, outputFile) {
+  pathMain <- system.file("compareScenarios/cs_main.Rmd", package = "piamPlotComparison")
   linesMain <- readLines(pathMain)
   delimiters <- grep("^(---|\\.\\.\\.)\\s*$", linesMain)
   headerMain <- linesMain[(delimiters[1]):(delimiters[2])]
@@ -192,28 +197,38 @@ compareScenarios <- function(
   baseYaml <- ymlthis::as_yml(yml)
   newYamlParams <- baseYaml$params
   newYamlParams[names(yamlParams)] <- yamlParams
+
   if (!is.null(names(yamlParams$mifScen))) {
     newYamlParams$mifScenNames <- names(yamlParams$mifScen)
   }
+
   newYaml <- ymlthis::yml_replace(
     baseYaml,
     params = newYamlParams,
     date = format(Sys.Date()))
+
   pathDir <- file.path(outputDir, paste0(outputFile, "_Rmd"))
+
   if (!dir.exists(pathDir)) dir.create(pathDir)
-  dirFiles <- dir(
-    system.file("markdown/", package = "piamPlotComparison"),
-    full.names = TRUE)
+
+  dirFiles <- dir(system.file("compareScenarios", package = "piamPlotComparison"), full.names = TRUE)
+
+  if (!is.null(projectLibrary)) {
+    dirFiles <- c(dirFiles, dir(system.file("compareScenarios", package = projectLibrary), full.names = TRUE))
+  }
+
   rmdDirFiles <- grep(
     dirFiles,
-    pattern = "cs2_main\\.Rmd$",
+    pattern = "cs_main\\.Rmd$",
     invert = TRUE, value = TRUE)
+
   file.copy(rmdDirFiles, pathDir)
+
   ymlthis::use_rmarkdown(
     newYaml,
-    path = file.path(pathDir, "cs2_main.Rmd"),
+    path = file.path(pathDir, "cs_main.Rmd"),
     template = system.file(
-      "markdown/cs2_main.Rmd",
+      "compareScenarios/cs_main.Rmd",
       package = "piamPlotComparison"),
     include_yaml = FALSE)
 }

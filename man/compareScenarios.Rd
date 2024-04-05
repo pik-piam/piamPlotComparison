@@ -7,6 +7,7 @@
 compareScenarios(
   mifScen,
   mifHist,
+  projectLibrary = NULL,
   outputDir = getwd(),
   outputFile = "CompareScenarios",
   outputFormat = "PDF",
@@ -21,6 +22,14 @@ If the vector has names, those are used to refer to the scenarios in the
 output file.}
 
 \item{mifHist}{\code{character(1)}. Path to historical mif.}
+
+\item{projectLibrary}{\code{NULL} or \code{character(n)}. Default: \code{NULL}.
+An R library containing Rmd files that could be included. You can further filter
+the sections to be rendered using the \code{sections} YAML parameter.
+Expects the Rmd files must be placed in a folder \code{inst/compareScenarios}.
+Files must have the format \code{cs_[NUMBER]_*.Rmd} to be considered.
+If the folder contains a file \code{preprocessing.Rmd}, it will be executed
+before rendering the sections.}
 
 \item{outputDir}{\code{character(1)}. The directory where the output document
 and intermediary files are created.}
@@ -64,6 +73,9 @@ choose Rmd as output format and obtain a copy of the *.Rmd-files.
     Path to default.cfg, which creates a \code{cfg} object with default
     values. If provided, some information gathered from this file is
     shown at the beginning of the output document.}
+  \item{\code{docTitle}}{
+   \code{character(n) or NULL}.
+   Title of the document. Defaults to 'Compare Scenarios'}
   \item{\code{yearsScen}}{
     \code{numeric(n)}.
     Default: \code{c(seq(2005, 2060, 5), seq(2070, 2100, 10))}.
@@ -91,10 +103,7 @@ choose Rmd as output format and obtain a copy of the *.Rmd-files.
   \item{\code{sections}}{
     \code{character(n) or numeric(n) or NULL}.
     Default: \code{"all"}.
-    Names or numbers of sections to include. For names subset of
-    \code{c("00_info", "01_summary", "02_macro", "03_emissions",
-    "04_energy_supply", "05_energy_demand", "06_energy_services",
-    "07_climate", "08_sdp", "09_carbon_management", "99_further_info")}.
+    Names or numbers of sections to include.
     Use \code{"all"} to include all available sections.
     Use \code{NULL} to not include any section
     (useful in combination with parameter \code{envir}).}
@@ -102,10 +111,6 @@ choose Rmd as output format and obtain a copy of the *.Rmd-files.
     \code{NULL} or \code{character(n)}.
     Default: \code{NULL}.
     Path to a *.Rmd-file that may be included as additional section.}
-  \item{\code{preprocessingFilePath}}{
-    \code{NULL} or \code{character(n)}.
-    Default: \code{NULL}.
-    Path to a *.Rmd-file with preprocessing code.}
   \item{\code{mainReg}}{
     \code{character(1)}.
     Default: \code{"World"}.
