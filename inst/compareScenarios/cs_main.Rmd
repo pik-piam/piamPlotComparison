@@ -83,6 +83,7 @@ if (interactive()) {
 # may cause "Undefined control sequence" errors in LaTeX.
 try(unloadNamespace("kableExtra"), silent = TRUE)
 
+library(piamPlotComparison)
 suppressMessages(library(gridExtra))
 options(tidyverse.quiet = TRUE)
 library(tidyverse)
@@ -196,6 +197,7 @@ dataHist <-
 dataScen <-
   dataScen %>%
   filter(period %in% params$yearsScen)
+
 dataHist <-
   dataHist %>%
   filter(period %in% params$yearsHist, !(model %in% params$modelsHistExclude), !is.na(value)) %>%
@@ -221,10 +223,6 @@ if (!is.null(params$reg)) {
     filter(region %in% params$reg) %>%
     droplevels()
 }
-```
-
-```{r quitte}
-data <- as.quitte(data)
 ```
 
 
@@ -273,11 +271,17 @@ if (length(params$sections) == 1 && params$sections == "all") {
   }
 }
 
-preprocessingFilePath <- if (file.exists("preprocessing.Rmd")) "preprocessing.Rmd" else character(0)
-
 ```
 
-```{r include preprocessing, child = preprocessingFilePath}
+```{r include preprocessing}
+
+if (file.exists("preprocessing.R")) {
+  source("preprocessing.R", local = TRUE)
+}
+```
+
+```{r quitte}
+data <- as.quitte(data)
 ```
 
 ```{r remove objects not to be used anymore}
