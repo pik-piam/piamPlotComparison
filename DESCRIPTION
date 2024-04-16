@@ -1,8 +1,8 @@
 Type: Package
 Package: piamPlotComparison
 Title: Create comparison plots for your model results
-Version: 0.0.4
-Date: 2024-04-05
+Version: 0.0.5
+Date: 2024-04-16
 Authors@R: c(
     person("Falk", "Benke", , "benke@pik-potsdam.de", role = c("aut", "cre")),
     person("Christof", "Schoetz", role = "aut")
