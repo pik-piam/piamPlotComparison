@@ -90,6 +90,7 @@ library(tidyverse)
 suppressMessages(library(kableExtra))
 library(quitte)
 library(mip)
+library(piamUtils)
 ```
 
 
@@ -210,11 +211,11 @@ data <-
   data %>%
   # In the variable names, replace `$dot$` by `.`.
   mutate(
-    variable = substitutePlaceholder(variable)) %>%
+    variable = piamUtils::substitutePlaceholder(variable)) %>%
   # In the variable names, replace `|+|`, `|++|`, `|+++|`, ... by `|`.
   mutate(
     varplus = as.character(variable),
-    variable = deletePlus(variable))
+    variable = piamUtils::removePlus(variable))
 
 # Filter regions.
 if (!is.null(params$reg)) {
