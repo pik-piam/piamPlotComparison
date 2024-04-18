@@ -215,7 +215,7 @@ data <-
   # In the variable names, replace `|+|`, `|++|`, `|+++|`, ... by `|`.
   mutate(
     varplus = as.character(variable),
-    variable = piamutils::removePlus(variable))
+    variable = piamutils::deletePlus(variable))
 
 # Filter regions.
 if (!is.null(params$reg)) {
