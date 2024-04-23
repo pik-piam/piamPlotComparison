@@ -1,7 +1,7 @@
 Type: Package
 Package: piamPlotComparison
 Title: Create comparison plots for your model results
-Version: 0.0.9
+Version: 0.0.10
 Date: 2024-04-23
 Authors@R: c(
     person("Falk", "Benke", , "benke@pik-potsdam.de", role = c("aut", "cre")),
@@ -12,6 +12,7 @@ License: LGPL-3
 URL: https://github.com/pik-piam/piamPlotComparison
 Imports:
     dplyr,
+    jsonlite,
     knitr,
     magclass,
     mip (>= 0.148.11),

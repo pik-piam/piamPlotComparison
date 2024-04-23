@@ -234,7 +234,7 @@ options(warn = 1)
 options(mip.mainReg = params$mainReg) # nolint
 options(mip.yearsBarPlot = params$yearsBarPlot) # nolint
 
-# Reference year for Kaya decomposition is params$yearRef or the first available year therafter.
+# Reference year for Kaya decomposition is params$yearRef or the first available year thereafter.
 options(kaya.refYear = min(params$yearsScen[params$yearsScen >= params$yearRef])) # nolint
 
 # allow for duplicate chunk labels
