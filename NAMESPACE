@@ -2,6 +2,7 @@
 
 export(calcTimeSeriesStats)
 export(compareScenarios)
+export(getCs2Profiles)
 export(showStatsTable)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,across)
