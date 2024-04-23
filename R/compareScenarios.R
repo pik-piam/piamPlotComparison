@@ -29,6 +29,7 @@
 #'   an preprocess data in your global environment during development.
 #' @param quiet \code{logical(1)}. Suppress printing during rendering?
 #' @param ... YAML parameters, see below.
+#' @importFrom piamutils getSystemFile
 #' @return The value returned by \code{\link[rmarkdown:render]{rmarkdown::render()}}.
 #' @section YAML Parameters:
 #' \describe{
@@ -124,14 +125,14 @@
 #' }
 #' @export
 compareScenarios <- function(
-  mifScen, mifHist,
-  projectLibrary = NULL,
-  outputDir = getwd(),
-  outputFile = "CompareScenarios",
-  outputFormat = "PDF",
-  envir = new.env(),
-  quiet = FALSE,
-  ...
+    mifScen, mifHist,
+    projectLibrary = NULL,
+    outputDir = getwd(),
+    outputFile = "CompareScenarios",
+    outputFormat = "PDF",
+    envir = new.env(),
+    quiet = FALSE,
+    ...
 ) {
   # Set yaml parameters and convert relative to absolute paths.
   yamlParams <- c(
@@ -162,11 +163,11 @@ compareScenarios <- function(
   # copy the template directory from the package to the outputDir because
   # rmarkdown writes to the folder containing the template.
   templateInOutputDir <- file.path(outputDir, "compareScenarios", "cs_main.Rmd")
-  file.copy(system.file("compareScenarios", package = "piamPlotComparison"),
+  file.copy(piamutils::getSystemFile("compareScenarios", package = "piamPlotComparison"),
             outputDir, recursive = TRUE)
 
   if (!is.null(projectLibrary)) {
-    file.copy(system.file("compareScenarios", package = projectLibrary),
+    file.copy(piamutils::getSystemFile("compareScenarios", package = projectLibrary),
               outputDir, recursive = TRUE)
   }
 
@@ -187,7 +188,7 @@ compareScenarios <- function(
 # Copies the CompareScenarios-Rmds to the specified location and modifies
 # their YAML header according to \code{yamlParams}.
 .compareScenarios2Rmd <- function(projectLibrary, yamlParams, outputDir, outputFile) {
-  pathMain <- system.file("compareScenarios/cs_main.Rmd", package = "piamPlotComparison")
+  pathMain <- piamutils::getSystemFile("compareScenarios/cs_main.Rmd", package = "piamPlotComparison")
   linesMain <- readLines(pathMain)
   delimiters <- grep("^(---|\\.\\.\\.)\\s*$", linesMain)
   headerMain <- linesMain[(delimiters[1]):(delimiters[2])]
@@ -211,10 +212,10 @@ compareScenarios <- function(
 
   if (!dir.exists(pathDir)) dir.create(pathDir)
 
-  dirFiles <- dir(system.file("compareScenarios", package = "piamPlotComparison"), full.names = TRUE)
+  dirFiles <- dir(piamutils::getSystemFile("compareScenarios", package = "piamPlotComparison"), full.names = TRUE)
 
   if (!is.null(projectLibrary)) {
-    dirFiles <- c(dirFiles, dir(system.file("compareScenarios", package = projectLibrary), full.names = TRUE))
+    dirFiles <- c(dirFiles, dir(piamutils::getSystemFile("compareScenarios", package = projectLibrary), full.names = TRUE))
   }
 
   rmdDirFiles <- grep(
@@ -227,7 +228,7 @@ compareScenarios <- function(
   ymlthis::use_rmarkdown(
     newYaml,
     path = file.path(pathDir, "cs_main.Rmd"),
-    template = system.file(
+    template = piamutils::getSystemFile(
       "compareScenarios/cs_main.Rmd",
       package = "piamPlotComparison"),
     include_yaml = FALSE)
