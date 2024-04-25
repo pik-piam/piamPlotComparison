@@ -86,55 +86,8 @@ if (exists("cfgGms") && !is.null(cfgGms)) {
     cfgGmsWide %>%
     select(-where(~ length(unique(.)) == 1)) %>%
     select(scenario, everything())
-  cfgGmsWideSame <-
-    cfgGmsWide %>%
-    select(where(~ length(unique(.)) == 1)) %>%
-    distinct()
 }
 ```
-
-
-```{r results='asis'}
-# Show all gms config option that is the same in all scenarios but differs from the default.
-if (exists("cfgDefault") && !is.null(cfgDefault) &&
-    exists("cfgGmsWideSame") && !is.null(cfgGmsWideSame)) {
-  colNames <- intersect(names(cfgGmsWideSame), names(cfgDefault$gms))
-  # the types may differ between the two lists, so convert to character
-  isSameAsDefault <- vapply(
-    colNames,
-    function(nm) {
-      identical(
-        as.character(cfgDefault$gms[[nm]]),
-        as.character(unname(cfgGmsWideSame[[nm]])))
-    },
-    logical(1)
-  )
-  cfgGmsWideSameDiffDefault <-
-    bind_rows(
-      lapply(cfgGmsWideSame[colNames[!isSameAsDefault]], as.character),
-      lapply(cfgDefault$gms[colNames[!isSameAsDefault]], as.character))
-
-  cat("## GAMS Config Non-Default\n\n")
-
-  cat("Following GAMS settings are the same in all scenarios but different from the default settings.\n\n")
-
-  bind_cols(
-    Source = c("Scenarios", "Default"),
-    cfgGmsWideSameDiffDefault
-  ) %>%
-    showInTables()
-
-  cat(
-    "Following GAMS settings are the same in all scenarios and not present in the default file:\n\n")
-
-  bind_cols(
-    Source = "Scenarios",
-    cfgGmsWideSame[setdiff(names(cfgGmsWideSame), names(cfgDefault$gms))]
-  ) %>%
-  showInTables()
-}
-```
-
 
 ```{r results='asis'}
 # Show all gms config options that differ between scenarios.

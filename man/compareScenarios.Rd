@@ -68,11 +68,6 @@ choose Rmd as output format and obtain a copy of the *.Rmd-files.
     scenario. The paths must be provided in the same order as \code{mifScen}.
     If provided, some information gathered from these files is
     shown at the beginning of the output document.}
-  \item{\code{cfgDefault}}{
-    \code{character(1) or NULL}.
-    Path to default.cfg, which creates a \code{cfg} object with default
-    values. If provided, some information gathered from this file is
-    shown at the beginning of the output document.}
   \item{\code{docTitle}}{
    \code{character(n) or NULL}.
    Title of the document. Defaults to 'Compare Scenarios'}
@@ -138,7 +133,6 @@ compareScenarios(
   mifScen = c(ScenarioName1 = "path/to/scen1.mif", ScenarioName2 = "path/to/scen2.mif"),
   mifHist = "path/to/historical.mif",
   cfgScen = c("path/to/scen1/config.RData", "path/to/scen2/config.RData"),
-  cfgDefault = "path/to/default.cfg",
   outputDir = "path/to/output",
   outputFormat = "Rmd",
   outputFile = format(Sys.time(), "compScen_\%Y\%m\%d-\%H\%M\%S"),
