@@ -22,7 +22,6 @@ params:
   mifScen: ""
   mifScenNames: null
   cfgScen: null
-  cfgDefault: null
   mifHist: ""
   yearsScen: !r c(seq(2005, 2060, 5), seq(2070, 2100, 10))
   yearsHist: !r c(seq(1960, 2024, 1), seq(2025, 2100, 5))
@@ -119,11 +118,7 @@ if (!is.null(params$cfgScen)) {
     filter(name != "gms")
   rm(cfgs)
 }
-if (!is.null(params$cfgDefault)) {
-  env <- new.env()
-  source(params$cfgDefault, local = env, echo = FALSE) # nolint
-  cfgDefault <- env$cfg
-}
+
 ```
 
 
