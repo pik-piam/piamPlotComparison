@@ -89,6 +89,7 @@ suppressMessages(library(kableExtra))
 library(quitte)
 library(mip)
 library(piamutils)
+library(piamPlotComparison)
 ```
 
 
@@ -282,7 +283,7 @@ data <- as.quitte(data)
 ```{r remove objects not to be used anymore}
 
 varNames <- c(
-  "availableSections", "cfgTopLevel", "dataScenNested", "env", "envToolsRstudio",
+  "availableSections", "dataScenNested", "env", "envToolsRstudio",
   "fn", "insertExprAtStartOfFun", "lightenColor", "loadCfg", "matches", 
   "oldRsSetNotebookGraphicsOption")
 for (vn in varNames) if (exists(vn)) rm(list = vn)

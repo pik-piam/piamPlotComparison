@@ -10,9 +10,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Christof Schötz" />
+<meta name="author" content="Falk Benke" />
 
-<meta name="date" content="2024-04-05" />
+<meta name="date" content="2024-04-26" />
 
 <title>compareScenarios</title>
 
@@ -339,94 +339,49 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">compareScenarios</h1>
-<h4 class="author">Christof Schötz</h4>
-<h4 class="date">2024-04-05</h4>
+<h4 class="author">Falk Benke</h4>
+<h4 class="date">2024-04-26</h4>
 
 
 <div id="TOC">
 <ul>
 <li><a href="#overview" id="toc-overview"><span class="toc-section-number">1</span> Overview</a></li>
-<li><a href="#usage" id="toc-usage"><span class="toc-section-number">2</span> Usage</a>
+<li><a href="#usage" id="toc-usage"><span class="toc-section-number">2</span> Usage</a></li>
+<li><a href="#cs_main.rmd" id="toc-cs_main.rmd"><span class="toc-section-number">3</span> cs_main.Rmd</a>
 <ul>
-<li><a href="#output.r-and-profiles" id="toc-output.r-and-profiles"><span class="toc-section-number">2.1</span> output.R and Profiles</a>
-<ul>
-<li><a href="#output.r" id="toc-output.r"><span class="toc-section-number">2.1.1</span> output.R</a></li>
-<li><a href="#profiles" id="toc-profiles"><span class="toc-section-number">2.1.2</span> Profiles</a></li>
-<li><a href="#changing-or-adding-profiles" id="toc-changing-or-adding-profiles"><span class="toc-section-number">2.1.3</span> Changing or Adding
-Profiles</a></li>
+<li><a href="#yaml-header" id="toc-yaml-header"><span class="toc-section-number">3.1</span> YAML-header</a></li>
+<li><a href="#loading" id="toc-loading"><span class="toc-section-number">3.2</span> Loading</a></li>
+<li><a href="#preprocessing" id="toc-preprocessing"><span class="toc-section-number">3.3</span> Preprocessing</a></li>
+<li><a href="#global-variables" id="toc-global-variables"><span class="toc-section-number">3.4</span> Global Variables</a></li>
 </ul></li>
-<li><a href="#direct-call-and-mif-files" id="toc-direct-call-and-mif-files"><span class="toc-section-number">2.2</span> Direct Call and mif-Files</a></li>
-</ul></li>
-<li><a href="#interactive-use-of-the-rmd-files" id="toc-interactive-use-of-the-rmd-files"><span class="toc-section-number">3</span> Interactive Use of the Rmd-files</a>
+<li><a href="#section-rmd-files" id="toc-section-rmd-files"><span class="toc-section-number">4</span> Section-Rmd-files</a>
 <ul>
-<li><a href="#using-outputformat-rmd" id="toc-using-outputformat-rmd"><span class="toc-section-number">3.1</span> Using outputFormat =
-“Rmd”</a></li>
-<li><a href="#using-a-cloned-remind2-repository" id="toc-using-a-cloned-remind2-repository"><span class="toc-section-number">3.2</span> Using a cloned remind2
-repository</a></li>
-</ul></li>
-<li><a href="#viewing-available-variables-in-mif-files" id="toc-viewing-available-variables-in-mif-files"><span class="toc-section-number">4</span> Viewing Available Variables in mif
-Files</a>
-<ul>
-<li><a href="#output.r-1" id="toc-output.r-1"><span class="toc-section-number">4.1</span> output.R</a></li>
-<li><a href="#package-function" id="toc-package-function"><span class="toc-section-number">4.2</span> Package Function</a></li>
-</ul></li>
-<li><a href="#workflow-for-adding-a-new-plot-to-comparescenarios2" id="toc-workflow-for-adding-a-new-plot-to-comparescenarios2"><span class="toc-section-number">5</span> Workflow for Adding a New Plot to
-CompareScenarios2</a></li>
-<li><a href="#cs2_main.rmd" id="toc-cs2_main.rmd"><span class="toc-section-number">6</span> cs2_main.Rmd</a>
-<ul>
-<li><a href="#yaml-header" id="toc-yaml-header"><span class="toc-section-number">6.1</span> YAML-header</a></li>
-<li><a href="#loading" id="toc-loading"><span class="toc-section-number">6.2</span> Loading</a></li>
-<li><a href="#preprocessing" id="toc-preprocessing"><span class="toc-section-number">6.3</span> Preprocessing</a></li>
-<li><a href="#global-variables" id="toc-global-variables"><span class="toc-section-number">6.4</span> Global Variables</a></li>
-</ul></li>
-<li><a href="#section-rmd-files" id="toc-section-rmd-files"><span class="toc-section-number">7</span> Section-Rmd-files</a>
-<ul>
-<li><a href="#usersectionpath" id="toc-usersectionpath"><span class="toc-section-number">7.1</span> userSectionPath</a></li>
-<li><a href="#special-sections" id="toc-special-sections"><span class="toc-section-number">7.2</span> Special Sections</a>
+<li><a href="#usersectionpath" id="toc-usersectionpath"><span class="toc-section-number">4.1</span> userSectionPath</a></li>
+<li><a href="#special-sections" id="toc-special-sections"><span class="toc-section-number">4.2</span> Special Sections</a>
 <ul>
 <li><a href="#info" id="toc-info">0 Info</a></li>
 <li><a href="#further-info" id="toc-further-info">99 Further
 Info</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#content-functions" id="toc-content-functions"><span class="toc-section-number">8</span> Content Functions</a>
+<li><a href="#content-functions" id="toc-content-functions"><span class="toc-section-number">5</span> Content Functions</a>
 <ul>
-<li><a href="#plot-functions" id="toc-plot-functions"><span class="toc-section-number">8.1</span> Plot Functions</a></li>
-<li><a href="#table-functions" id="toc-table-functions"><span class="toc-section-number">8.2</span> Table Functions</a></li>
+<li><a href="#plot-functions" id="toc-plot-functions"><span class="toc-section-number">5.1</span> Plot Functions</a></li>
+<li><a href="#table-functions" id="toc-table-functions"><span class="toc-section-number">5.2</span> Table Functions</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
-<p>The function <code>compareScenarios()</code> can be used to visually
-compare the results of multiple runs of IAMs like <a href="https://github.com/remindmodel/remind">REMIND</a> or <a href="https://github.com/pik-piam/edgeTransport">EDGE-T</a>.</p>
-<p>It can be called via the <a href="https://github.com/remindmodel/remind/blob/develop/output.R"><code>remind/output.R</code></a>
-script: Execute <code>Rscript output.R</code> in the REMIND folder,
-select <code>Comparison across runs</code> and then
-<code>compareScenarios2</code>.</p>
-<p>The function reads the results from the output-mif-files (in the
-remind folder after runs are completed, i.e., the files
-<code>./output/&lt;run_folder&gt;/REMIND_generic_&lt;run&gt;.mif</code>).
-Additionally it reads historical data from a <code>historical.mif</code>
-in one of the run output folders. Using this data, a document containing
-many plots is created and written as a PDF- or HTML-file. See
-<code>?piamPlotComparison::compareScenarios</code> for information on
-how to call the function directly with the appropriate arguments.</p>
 <p>Internally, <code>compareScenarios()</code> calls
 <code>rmarkdown::render()</code> on certain Rmarkdown-files (Rmd-files).
-Rmd-files may contain R-code (e.g., for creating plots, creating tables)
-as well as descriptive text (in this case, mostly section titles). The
-main Rmd-files to be rendered are part of the remind2-package. Some
-optional section may be placed in the REMIND repository at <a href="https://github.com/remindmodel/remind/tree/develop/scripts/cs2"><code>remind/scripts/cs2/</code></a>.
-In the development state of the package, the main Rmd-files can be found
-in the folder <a href="https://github.com/pik-piam/remind2/tree/master/inst/compareScenarios"><code>remind2/inst/compareScenarios/</code></a>.
-To be more precise, <code>rmarkdown::render()</code> is called on
-<code>cs_main.Rmd</code> of <a href="https://github.com/pik-piam/piamPlotComparison/tree/master/inst/compareScenarios">this
-library</a>, which includes other Rmd-files - one for each section of
-the output document. The loading and preprocessing of data happens in
-<code>cs_main.Rmd</code>; the section Rmd-files mostly call plot
-functions.</p>
+.<br />
+To be more precise, <code>rmarkdown::render()</code> is called on <a href="https://github.com/fbenke-pik/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd">cs_main.Rmd</a>
+of the piamPlotComparison package, which includes other Rmd-files - one
+for each section of the output document. The loading and preprocessing
+of data happens in <code>cs_main.Rmd</code>; the section Rmd-files
+mostly call plot functions.</p>
 <p>Aside from HTML- and PDF-documents as output,
 <code>compareScenarios()</code> also allows to obtain a copy of the
 Rmd-files needed to create these outputs (by setting the argument
@@ -440,256 +395,28 @@ Rmd-files can be used interactively in RStudio.</p>
 </div>
 <div id="usage" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Usage</h1>
-<p><code>compareScenarios()</code> with different predefined settings
-can be called via <code>Rscript output.R</code>. It can also be called
-directly as a function of the R-package
-<code>piamPlotComparison</code>.</p>
-<div id="output.r-and-profiles" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> output.R and
-Profiles</h2>
-<div id="output.r" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> output.R</h3>
-<p>Typically, we want to compare the results of some REMIND runs which
-were created in the <code>remind/output/</code> folder of a clone of the
-REMIND repository. Assume such runs are available and, in particular,
-the
-<code>remind/output/&lt;run_folder&gt;/REMIND_generic_&lt;run&gt;.mif</code>
-of the runs of interest exist. Go to the REMIND directory
-<code>remind/</code> and call <code>Rscript output.R</code>. Then choose
-<code>Comparison across runs</code> and <code>compareScenarios2</code>.
-Select the runs of interest. We then can choose a filename prefix for
-the output file if we want. Next, choose a slurm mode, e.g.,
-<code>short</code> (the job will run for less than 1 hour, usually
-something like 20min). Finally, we can choose a cs2-profile. Standard
-profiles for the selected runs are colored. After choosing one or more
-profiles, the respective slurm jobs will be started. An HTML- or
-PDF-file will be created. If something goes wrong, take a look at the
-<code>*.log</code>-file with the same name as the cs2-output file.</p>
+<p>…</p>
 </div>
-<div id="profiles" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Profiles</h3>
-<p>A cs2-profile is a set of arguments for
-<code>compareScenarios()</code>. There are different profiles for a
-comparison on the 12 main REMIND regions (<code>H12</code>,
-<code>H12-short</code>), or on the European regions (<code>EU27</code>,
-<code>EU27-short</code>) for 21-region-runs. The suffix
-<code>-short</code> indicates that only periods up to 2050 are
-considered. The <code>default</code>-profiles just call
-<code>compareScenarios()</code> with the default arguments as described
-in <code>?piamPlotComparison::compareScenarios</code>. The available
-profiles are stored in <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/profiles.json"><code>remind/scripts/cs2/profiles.json</code></a>.
-Take a look at this file (open in text editor) to see the definition of
-each profile.</p>
-</div>
-<div id="changing-or-adding-profiles" class="section level3" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Changing or Adding
-Profiles</h3>
-<p>To change a profile or add a new profile, just edit <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/profiles.json"><code>remind/scripts/cs2/profiles.json</code></a>.
-Read the <code>_DESCRIPTION_</code> in that file. Every argument
-(including YAML-arguments) to <code>compareScenarios()</code> can be set
-or changed.</p>
-<p>We can create our own cs-report: First, we create an
-“section”-Rmd-file, similar to <code>cs2_NN_XXXX.Rmd</code> in <a href="https://github.com/pik-piam/remind2/tree/master/inst/markdown/compareScenarios2"><code>remind2/inst/markdown/compareScenarios2</code></a>.
-It typically contains calls to plot-function using an R-object called
-<code>data</code>. This objects stores all the information read from the
-mif-files. We place our “section”-Rmd-file in <a href="https://github.com/remindmodel/remind/tree/develop/scripts/cs2"><code>remind/scripts/cs2/</code></a>.
-Then we add a new profile in <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/profiles.json"><code>remind/scripts/cs2/profiles.json</code></a>
-with options <code>&quot;sections&quot;: &quot;0&quot;</code> and
-<code>&quot;userSectionPath&quot;: &quot;normalizePath(&#39;./scripts/cs2/ourSection.Rmd&#39;)&quot;</code>.
-The new profile should appear as a choice in the
-<code>output.R</code>-dialog. Choosing it will create a cs2-report
-consisiting only of the Info-section and our own section. See the
-profile <code>mySection</code> and <a href="https://github.com/remindmodel/remind/blob/develop/scripts/cs2/mySection.Rmd"><code>remind/scripts/cs2/mySection.Rmd</code></a>
-for an example.</p>
-</div>
-</div>
-<div id="direct-call-and-mif-files" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Direct Call and
-mif-Files</h2>
-<p>A simple direct call of <code>compareScenarios2()</code> may look
-like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(remind2)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">compareScenarios2</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/Base.mif&quot;</span>, <span class="st">&quot;path/to/NDC.mif&quot;</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">mifHist =</span> <span class="st">&quot;path/to/historical.mif&quot;</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">outputFile =</span> <span class="st">&quot;CompareScenarios2Example&quot;</span>)</span></code></pre></div>
-<p>For further examples and a description of further optional arguments
-to the function, see <code>?remind2::compareScenarios2</code>.</p>
-<p>It is possible to use paths to the cluster if called at PIK in the
-local network (e.g., <code>/p/tmp/username/...</code>) or in VPN (e.g.,
-<code>//clusterfs.pik-potsdam.de/tmp/username/...</code>).</p>
-</div>
-</div>
-<div id="interactive-use-of-the-rmd-files" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Interactive Use of the
-Rmd-files</h1>
-<p>In this section, we want to execute individual R-code chunks in the
-cs2-Rmd-files interactively in RStudio.</p>
-<p>First we need access to the Rmd-files. Here we essentially have two
-options.</p>
-<div id="using-outputformat-rmd" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Using outputFormat =
-“Rmd”</h2>
-<p>We call <code>remind2::compareScenarios2()</code> with
-<code>outputFormat = &quot;Rmd&quot;</code> to obtain a (modified) copy of the
-Rmd-files.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(remind2)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">compareScenarios2</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>, <span class="st">&quot;path/to/scen3.mif&quot;</span>), <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">mifHist =</span> <span class="st">&quot;path/to/historical.mif&quot;</span>, <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">outputDir =</span> <span class="st">&quot;path/to/where/rmds/should/be/copied/to&quot;</span>, <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">outputFormat =</span> <span class="st">&quot;Rmd&quot;</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="co"># Add current time as output name to not overwrite other things:</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">outputFile =</span> <span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="st">&quot;CompScen2-%Y%m%d-%H%M%S&quot;</span>))</span></code></pre></div>
-<p>The code in these Rmd-files is structured in chunks and each chunk
-can be run separately by clicking on its play-button. We first open
-<code>cs2_main.Rmd</code>. At the end of the file, there is a chunk</p>
-<pre><code>
-```r
-# CLICK &quot;RUN ALL CHUNKS ABOVE&quot; HERE TO PREPARE THE ENVIRONMENT
-```</code></pre>
-<p>Clicking on the <em>triangle above bar</em>-button on the right
-executes all chunks above and by that loads and prepares the data for
-plotting. After that we can open any section-Rmd-file and execute a
-chunk to create the respective plots. The plots should appear in RStudio
-inside the Rmd-file below the chunk.</p>
-</div>
-<div id="using-a-cloned-remind2-repository" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Using a cloned
-remind2 repository</h2>
-<p>Clone the <a href="https://github.com/pik-piam/remind2">remind2
-repository</a>. Open a section-Rmd-file <code>cs2_NN_XXXX.Rmd</code> in
-RStudio.</p>
-<p>Now we want to load the <code>data</code> object so that the
-code-chunks can be executed. If we have VPN or are in the local network
-at PIK, we can load the data from the latest automated model tests (AMT)
-via <code>remind2::loadModeltest()</code>. If this is not possible or we
-want other mifs to be loaded, we can use
-<code>remind2::loadCs2Data()</code> to create the <code>data</code>
-object. See the help pages (<code>?&lt;funName&gt;</code>) of these
-functions for more information. Now the chunks in the Rmd-files should
-be executable.</p>
-</div>
-</div>
-<div id="viewing-available-variables-in-mif-files" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Viewing Available
-Variables in mif Files</h1>
-<p>The variables in the reported mif-files
-(<code>remind/output/&lt;run_folder&gt;/REMIND_generic_&lt;run&gt;.mif</code>)
-have a hierarchical structure induced by the character <code>|</code>.
-This structure can be viewed in a hierarchical list.</p>
-<div id="output.r-1" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> output.R</h2>
-<p>In a remind folder with finished runs (with mif-files):</p>
-<ol style="list-style-type: decimal">
-<li>execute <code>Rscript output.R</code></li>
-<li>choose <code>Comparison across runs</code></li>
-<li>choose <code>varListHtml</code></li>
-<li>choose the runs you want to read the mif files from</li>
-<li>choose a file name prefix if you like</li>
-</ol>
-<p>Then the creation of the a HTML-file containing the hierarchical list
-of variables names in the chosen mif files is started. Note that it does
-not use slurm at the moment.</p>
-</div>
-<div id="package-function" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Package Function</h2>
-<p>See <code>?remind2::variablesAsList</code>.</p>
-<p>If connected to the PIK network (possibly via VPN) execute the
-following code to get an overview of the variables available in the
-automated model test mifs.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(remind2)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">loadModeltest</span>()</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>varList <span class="ot">&lt;-</span> <span class="fu">variablesAsList</span>(data, <span class="at">entry =</span> <span class="st">&quot;INFO&quot;</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="fu">View</span>(varList) <span class="co"># in RStudio</span></span></code></pre></div>
-<p>See also <code>?createVarListHtml</code> to create an HTML-file
-containing this info.</p>
-</div>
-</div>
-<div id="workflow-for-adding-a-new-plot-to-comparescenarios2" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Workflow for Adding a
-New Plot to CompareScenarios2</h1>
-<ol style="list-style-type: decimal">
-<li>If not done already, fork <a href="https://github.com/pik-piam/remind2" class="uri">https://github.com/pik-piam/remind2</a>.</li>
-<li>In your personal github remind2 repository, create a new
-branch.</li>
-<li>Clone the repository and switch to the newly created branch to get
-your local copy.</li>
-<li>In your local copy, open <code>remind2.Rproj</code> in RStudio.</li>
-<li>Press <code>CTRL+SHIFT+L</code> to call
-<code>devtools::load_all(&quot;.&quot;)</code>, which loads <code>remind2</code>
-from your local copy.</li>
-<li>If it is sufficient to test your new plots on the latest AMTs and
-you are connected to the PIK network (possibly via VPN), call
-<code>loadModeltest(folder = &quot;some/folder&quot;)</code>. Otherwise call an
-adapted form of</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">loadCs2Data</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>), <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="st">&quot;path/to/historical.mif&quot;</span>) <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span></code></pre></div>
-<p>This might take some time (up to 1min). After this, an R-object
-<code>data</code> should be available. Test this by typing
-<code>data</code> into the RStudio Console. The first rows of a
-<em>tibble</em> containing some REMIND data should appear. If a bunch of
-R-code appears, something went wrong.</p>
-<ol start="7" style="list-style-type: decimal">
-<li>Open the section-Rmd-file in which you want to add the plot. The
-files are in the folder <code>inst/markdown/compareScenarios2/</code>
-and have names of the form <code>cs2_NN_XXXX.Rmd</code>, where
-<code>NN</code> is a two digit number and <code>XXXX</code> resembles
-the section title.</li>
-<li>You should be able to execute any chunk in the section Rmd by
-clicking the play button in its top right corner.</li>
-<li>Insert a new chunk by copying an old one or by pressing
-<code>CTRL+ALT+I</code>. Note: It is better to not assign names to the
-chunks as cs2 will crash if you used the same name twice.</li>
-<li>Add a new plot inside the chunk, e.g.,
-<code>showLinePlots(data, &quot;Your|Variable|Name&quot;)</code>. See <a href="#plot-functions">Plot Functions</a> below.</li>
-<li>Run your newly created chunk to see the plot.</li>
-<li>Run the following code to see your new plot in a PDF. If you used
-<code>loadModeltest()</code> in 6., mif-files should be available in
-<code>some/folder/</code>.</li>
-</ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">compareScenarios2</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>), <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">mifHist =</span> <span class="st">&quot;path/to/historical.mif&quot;</span>, <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">outputFile =</span> <span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="st">&quot;cs2-%Y%m%d-%H%M%S&quot;</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">sections =</span> NN) <span class="co"># </span><span class="al">TODO</span><span class="co">: Replace NN by the number of the section you changed</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co"># (or by &quot;all&quot; to build the whole compare scenarios file, which will take a while).</span></span></code></pre></div>
-<ol start="13" style="list-style-type: decimal">
-<li>Commit your changes. In the commit message, you may use the
-shorthand <code>cs2</code> to indicate that you made a change to
-compareScenarios2, e.g.,
-<code>cs2: added plot of My|Variable</code>.</li>
-<li>Make sure you pulled all recent changes to remind2. Then, call
-<code>lucode2::buildLibrary()</code> to check the code and increase the
-version number of the package. Commit again with the commit message
-<code>`lucode2::buildLibrary()`</code>. Push your commits to
-github.</li>
-<li>Create a pull request of your branch to the <code>master</code>
-branch of the <code>pik-piam/remind2</code> repository.</li>
-</ol>
-</div>
-<div id="cs2_main.rmd" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> cs2_main.Rmd</h1>
+<div id="cs_main.rmd" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> cs_main.Rmd</h1>
 <p>This file loads the data from the mif-files, preprocesses the data,
 and includes the section-Rmd-files at the very end (and optionally
 further Rmd-files provided by the user, see YAML-parameter
 <code>userSectionPath</code>).</p>
-<div id="yaml-header" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> YAML-header</h2>
-<p>The file <code>cs2_main.Rmd</code> starts with a YAML header marked
-by <code>---</code>. This header declares some basic information of the
+<div id="yaml-header" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> YAML-header</h2>
+<p>The file <code>cs_main.Rmd</code> starts with a YAML header marked by
+<code>---</code>. This header declares some basic information of the
 report, like its title and the output format. Furthermore, it contains a
 list <code>params</code>, which parameterizes the report. Among others,
 such parameters are the paths to the mif-files and certain properties
 that are shared for all plots in the report. Each such parameter can be
 changed by a respective argument in the call of
-<code>compareScenarios2()</code>, see section <em>YAML Parameters</em>
-in the documentation of the function.</p>
+<code>compareScenarios()</code>, see section <em>YAML Parameters</em> in
+the documentation of the function.</p>
 </div>
-<div id="loading" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Loading</h2>
+<div id="loading" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Loading</h2>
 <p>The mif-files are loaded using <code>quitte::read.quitte()</code>.
 This function names the global region <code>&quot;World&quot;</code> (not
 <code>&quot;GLO&quot;</code> as <code>magclass::read.report()</code>). For each
@@ -700,32 +427,31 @@ object named <code>data</code>. In the sections, <code>data</code> is
 used to provide the data necessary for the plots.</p>
 <p>If provided, also config files are loaded.</p>
 </div>
-<div id="preprocessing" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Preprocessing</h2>
+<div id="preprocessing" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Preprocessing</h2>
 <ul>
 <li>Scenarios are renamed if the user specifies new names (using a named
 vector for the argument <code>mifScen</code> of
-<code>compareScenarios2()</code> or by setting the parameter
+<code>compareScenarios()</code> or by setting the parameter
 <code>mifScenNames</code> in the Rmd-files) or if scenario names are
 duplicate.</li>
 <li>The columns <code>period</code> (years) and <code>region</code> are
 filtered according to the parameters <code>yearsScen</code>,
 <code>yearsHist</code>, and <code>reg</code>.</li>
 <li><code>|+|, |++|, |+++|, ...</code> are removed from variable names.
-See also <code>remind2::deletePlus</code>. An additional column
+See also <code>piamutils::deletePlus</code>. An additional column
 <code>varplus</code> is added to the data frame, which retains the
 original name including <code>+</code>. This column is used by
 <code>mip::showAreaAndBarPlotsPlus()</code>.</li>
-<li>For a specified list of variables, a new per-capita-variable is
-created with the name <code>&quot;&lt;OLD_NAME&gt; pCap&quot;</code>.</li>
-<li>For a specified list of variables, a new per-GDP-variable is created
-with the name <code>&quot;&lt;OLD_NAME&gt; pGDP&quot;</code>. As the denominator,
-the value of <code>GDP|PPP pCap</code> is used.</li>
 </ul>
+<p>If you need to execute any additional code as part of the general
+setup, put it into a file
+<code>inst/compareScenarios/preprocessing.R</code> in the project
+library. Custom code will be executed after the general code.</p>
 </div>
-<div id="global-variables" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Global Variables</h2>
-<p>Global variables are created in <code>cs2_main.Rmd</code> and are
+<div id="global-variables" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Global Variables</h2>
+<p>Global variables are created in <code>cs_main.Rmd</code> and are
 intended to be used in the plot functions of the section-Rmd-files.</p>
 <p>The quitte-object (data frame) <code>data</code> with columns
 <code>model, scenario, region, variable, unit, period, value, varplus</code>
@@ -735,43 +461,44 @@ Thus, a vector of all available regions can be obtained by
 <p>Some arguments of the <code>mip::show...()</code> plot functions use
 the functionality provided by the base-R functions
 <code>options()</code> and <code>getOption()</code>. In
-<code>cs2_main.Rmd</code> there are calls to <code>options()</code>,
-setting values of the global options <code>mip.mainReg</code>,
-<code>mip.yearsBarPlot</code>, and <code>mip.histRefModel</code>. The
-plotting functions may have an argument, e.g., <code>mainReg</code> with
-default value <code>getOption(&quot;mip.mainReg&quot;)</code>. Thus, this argument
-does not have to be stated for each call of the plot function (assuming
-the respective call of <code>options()</code> sets it to the right
-value).</p>
+<code>cs_main.Rmd</code> there are calls to <code>options()</code>,
+setting values of the global options <code>mip.mainReg</code> and
+<code>mip.yearsBarPlot</code>. The plotting functions may have an
+argument, e.g., <code>mainReg</code> with default value
+<code>getOption(&quot;mip.mainReg&quot;)</code>. Thus, this argument does not have
+to be stated for each call of the plot function (assuming the respective
+call of <code>options()</code> sets it to the right value).</p>
+<p>If you want to set <code>mip.histRefModel</code>, please do so in the
+<code>preprocessing.R</code> file of your project library.</p>
 </div>
 </div>
-<div id="section-rmd-files" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> Section-Rmd-files</h1>
+<div id="section-rmd-files" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Section-Rmd-files</h1>
 <p>The section-Rmd-files follow the naming pattern
-<code>cs2_NN_XXXX.Rmd</code>, where <code>NN</code> is replaced by a two
+<code>cs_NN_XXXX.Rmd</code>, where <code>NN</code> is replaced by a two
 digit number and <code>XXXX</code> is replaced by a short name of the
 section. If the YAML-parameter <code>sections</code> is set to
 <code>&quot;all&quot;</code>, the default, all sections of this naming pattern are
-included in <code>cs2_main.Rmd</code>. Alternatively,
+included by <code>cs_main.Rmd</code>. Alternatively,
 <code>sections</code> can be set to a vector of individual sections in
 the form of <code>&quot;NN_XXXX&quot;</code> to only render these sections.</p>
 <p>The section-Rmd-files consist of section and sub-section titles,
 marked by <code>#</code>, <code>##</code>, <code>###</code>, …, and
 R-code chunks which create plots, usually by calling one of the
 <code>show...()</code>-functions in the <code>mip</code> package.</p>
-<div id="usersectionpath" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> userSectionPath</h2>
+<div id="usersectionpath" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> userSectionPath</h2>
 <p>The user can provide one or more additional Rmd-files that are
 appended after the sections provided by the package. Setting
 <code>sections</code> to <code>NULL</code> and
 <code>userSectionPath</code> to a character-vector of paths to Rmd-files
 creates a fully user-defined report.</p>
 </div>
-<div id="special-sections" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Special Sections</h2>
+<div id="special-sections" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Special Sections</h2>
 <p>There is a first section (section number 0) and a last section in the
-files <code>cs2_00_info.Rmd</code> and
-<code>cs2_99_further_info.Rmd</code>, respectively.</p>
+files <code>cs_00_info.Rmd</code> and
+<code>cs_99_further_info.Rmd</code>, respectively.</p>
 <div id="info" class="section level3 unnumbered">
 <h3 class="unnumbered">0 Info</h3>
 <p>This section contains a file reference table with scenario names and
@@ -779,43 +506,43 @@ the paths to the respective mif files. It also show if a scenario is
 renamed. Renaming can be forced by the user by using a named character
 vector as argument <code>mifScen</code> where the names indicate the new
 scenario name, e.g.,</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">compareScenarios2</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="at">newName1 =</span> <span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="at">newName2 =</span> <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  ...)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="at">newName1 =</span> <span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="at">newName2 =</span> <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  ...)</span></code></pre></div>
 <p>Or, if two scenarios have the same name, they are renamed
 automatically.</p>
 <p>Furthermore, this section displays a description of each scenario.
 This requires the YAML-parameter <code>cfgScen</code> to be set (see
 also <a href="#further-info">99 Further Info</a>). The description can
-be set in the <code>secenario_config*.csv</code>-file via a column
+be set in the <code>scenario_config*.csv</code>-file via a column
 <code>description</code>.</p>
 </div>
 <div id="further-info" class="section level3 unnumbered">
 <h3 class="unnumbered">99 Further Info</h3>
-<p>If <code>compareScenarios2()</code> is provided with paths to the
+<p>If <code>compareScenarios()</code> is provided with paths to the
 <code>config.Rdata</code> files of the scenarios via the YAML-parameter
-<code>cfgScen</code> and the path to <code>default.cfg</code> (<a href="https://github.com/remindmodel/remind/tree/develop/config/default.cfg">this</a>
-file) via <code>cfgDefault</code> an analysis of the configurations of
-the scenarios is shown.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">compareScenarios2</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">cfgScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1/config.RData&quot;</span>, <span class="st">&quot;path/to/scen2/config.RData&quot;</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">cfgDefault =</span> <span class="st">&quot;path/to/default.cfg&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  ...)</span></code></pre></div>
+<code>cfgScen</code>, an analysis of the configurations of the scenarios
+is shown.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">cfgScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1/config.RData&quot;</span>, <span class="st">&quot;path/to/scen2/config.RData&quot;</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  ...)</span></code></pre></div>
 </div>
 </div>
 </div>
-<div id="content-functions" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Content Functions</h1>
-<div id="plot-functions" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Plot Functions</h2>
+<div id="content-functions" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Content Functions</h1>
+<div id="plot-functions" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Plot Functions</h2>
 <p>The section Rmd-files mostly consist of simple calls of a
 <code>show...()</code>-function from the the <a href="https://github.com/pik-piam/mip">mip</a> package. These functions
 are designed to make the creation of re-occurring kinds of plots in
-comapreSceanrios2 simple. Alternatively, one can build custom plots
-using <code>ggplot2</code>.</p>
+<code>comapreSceanrios</code> simple. Alternatively, one can build
+custom plots using <code>ggplot2</code>.</p>
 <p>The <code>mip</code>-package contains following default plot
-functions for comapareScenarios2:</p>
+functions for <code>comapareScenarios</code>:</p>
 <ul>
 <li><code>showAreaAndBarPlots()</code></li>
 <li><code>showAreaAndBarPlotsPlus()</code></li>
@@ -834,12 +561,12 @@ option <code>mip.mainReg</code>. <code>showAreaAndBarPlots()</code> and
 <p>See the respective function documentation for more information and
 example plots.</p>
 </div>
-<div id="table-functions" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Table Functions</h2>
-<p>For creating tables in cs2, see the documentation of
-<code>remind2::calcTimeSeriesStats()</code> and
-<code>remind2::showStatsTable()</code> and – for an example – the
-section <strong>Tables of Significant Periods</strong> in <a href="https://github.com/pik-piam/remind2/blob/master/inst/markdown/compareScenarios2/cs2_01_summary.Rmd"><code>remind2/inst/markdown/compareScenarios2/cs2_01_summary.Rmd</code></a>.</p>
+<div id="table-functions" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Table Functions</h2>
+<p>For creating tables in cs, see the documentation of
+<code>piamPlotComparison::calcTimeSeriesStats()</code> and
+<code>piamPlotComparison::showStatsTable()</code> and – for an example –
+the section <strong>Tables of Significant Periods</strong> in <a href="https://github.com/pik-piam/remind2/blob/master/inst/compareScenarios/cs_01_summary.Rmd"><code>remind2/inst/compareScenarios/cs2_01_summary.Rmd</code></a>.</p>
 </div>
 </div>
 
