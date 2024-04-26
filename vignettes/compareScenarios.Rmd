@@ -26,13 +26,64 @@ knitr::opts_chunk$set(
 
 It is used in conjunction with a reporting library, such as [remind2](https://github.com/pik-piam/remind2) or [reporttransport](https://github.com/pik-piam/reporttransport). The reporting library includes Rmarkdown-files (Rmd-files) with R-code (e.g., for creating plots, creating tables) as well as descriptive text following some conventions. The framework offers functionality that reads model runs and produces either HTML- and PDF-documents using the Rmd-files via the core function `compareScenarios`.
 
+Internally, `compareScenarios()` calls `rmarkdown::render()` on [cs_main.Rmd](https://github.com/pik-piam/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd). This file loads the data from the mif-files, preprocesses the data, and includes the section-Rmd-files from the project library.
+
 Aside from HTML- and PDF-documents as output, `compareScenarios` also allows to obtain a copy of the Rmd-files needed to create these outputs (by setting the argument `outputFormat = "Rmd"`). Rendering the resulting Rmd-files to PDF or HTML yields the same documents as calls to `compareScenarios()` with `outputFormat = "PDF"` or `"HTML"`. The advantage of being able to access these Rmd-files is the possibility to change the plotting code without changing the code of the reporting library. Moreover, Rmd-files can be used interactively in RStudio.
 
-# Minimal setup
+# Getting Started
 
-...
+## Add Rmd files to your reporting library
 
-# cs_main.Rmd
+Create a folder `inst/compareScenarios` in your reporting library and place one Rmd-file for each section in your document in this folder. The section-Rmd-files follow the naming pattern `cs_NN_XXXX.Rmd`, where `NN` is replaced by a two digit number and `XXXX` is replaced by a short name of the section. 
+
+The Rmd-files usually contain chunks with plots. For plotting, we usually use the [mip](https://github.com/pik-piam/mip) package or `ggplot`. The frameworks provides the `data` object containing your model runs and historical / reference data for plotting.
+
+The framework takes care of preprocessing your inputs. If you need additional code to be executed as part of the setup (e.g. calculation of additional data or defining custom functions), you can do so by placing a file `preprocessing.R` in the folder `inst/compareScenarios`.
+
+Once you have all the files in place, install your updated project library (or run `devtools::load_all()`).
+
+## Run compareScenarios
+
+A simple direct call of `piamPlotComparison::compareScenarios()` may look like this:
+
+```{r}
+library(piamPlotComparison)
+compareScenarios(
+  projectLibrary = "myProjectLibrary",
+  mifScen = c("path/to/Base.mif", "path/to/NDC.mif"),
+  mifHist = "path/to/historical.mif",
+  outputFile = "CompareScenariosExample")
+```
+
+This creates a pdf called `CompareScenariosExample.pdf` using two runs `Base.mif` and `NDC.mif`, rendering all the sections found in your project library `myProjectLibrary`.
+
+For further examples and a description of further optional arguments to the function, see `?piamPlotComparison::compareScenarios`.
+
+## Interactive use of the Rmd-files
+
+In this section, we want to execute individual R-code chunks in the cs-Rmd-files interactively in RStudio. First, we need access to the Rmd-files by calling `piamPlotComparison::compareScenarios()` with `outputFormat = "Rmd"` to obtain a (modified) copy of the Rmd-files.
+
+```{r}
+library(piamPlotComparison)
+compareScenarios(
+  projectLibrary = "myProjectLib",
+  mifScen = c("path/to/scen1.mif", "path/to/scen2.mif", "path/to/scen3.mif"), # TODO.
+  mifHist = "path/to/historical.mif", # TODO.
+  outputDir = "path/to/where/rmds/should/be/copied/to", # TODO.
+  outputFormat = "Rmd",
+  # Add current time as output name to not overwrite other things:
+  outputFile = format(Sys.time(), "CompScen2-%Y%m%d-%H%M%S"))
+```
+
+The code in these Rmd-files is structured in chunks and each chunk can be run separately by clicking on its play-button. We first open `cs_main.Rmd`. At the end of the file, there is a chunk
+````
+```{r prepare mark}
+# CLICK "RUN ALL CHUNKS ABOVE" HERE TO PREPARE THE ENVIRONMENT
+```
+```` 
+Clicking on the *triangle above bar*-button on the right executes all chunks above and by that loads and prepares the data for plotting. After that we can open any section-Rmd-file and execute a chunk to create the respective plots. The plots should appear in RStudio inside the Rmd-file below the chunk.
+
+# Structure of cs_main.Rmd
 
 Internally, `compareScenarios()` calls `rmarkdown::render()` on certain Rmarkdown-files (Rmd-files). To be more precise, `rmarkdown::render()` is called on [cs_main.Rmd](https://github.com/pik-piam/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd). This file loads the data from the mif-files, preprocesses the data, and includes the section-Rmd-files from the project library at the very end (and optionally further Rmd-files provided by the user, see YAML-parameter `userSectionPath`).
 

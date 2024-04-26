@@ -346,8 +346,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="TOC">
 <ul>
 <li><a href="#overview" id="toc-overview"><span class="toc-section-number">1</span> Overview</a></li>
-<li><a href="#minimal-setup" id="toc-minimal-setup"><span class="toc-section-number">2</span> Minimal setup</a></li>
-<li><a href="#cs_main.rmd" id="toc-cs_main.rmd"><span class="toc-section-number">3</span> cs_main.Rmd</a>
+<li><a href="#getting-started" id="toc-getting-started"><span class="toc-section-number">2</span> Getting Started</a>
+<ul>
+<li><a href="#add-rmd-files-to-your-reporting-library" id="toc-add-rmd-files-to-your-reporting-library"><span class="toc-section-number">2.1</span> Add Rmd files to your reporting
+library</a></li>
+<li><a href="#run-comparescenarios" id="toc-run-comparescenarios"><span class="toc-section-number">2.2</span> Run compareScenarios</a></li>
+<li><a href="#interactive-use-of-the-rmd-files" id="toc-interactive-use-of-the-rmd-files"><span class="toc-section-number">2.3</span> Interactive use of the
+Rmd-files</a></li>
+</ul></li>
+<li><a href="#structure-of-cs_main.rmd" id="toc-structure-of-cs_main.rmd"><span class="toc-section-number">3</span> Structure of cs_main.Rmd</a>
 <ul>
 <li><a href="#yaml-header" id="toc-yaml-header"><span class="toc-section-number">3.1</span> YAML-header</a></li>
 <li><a href="#loading" id="toc-loading"><span class="toc-section-number">3.2</span> Loading</a></li>
@@ -382,6 +389,10 @@ The reporting library includes Rmarkdown-files (Rmd-files) with R-code
 following some conventions. The framework offers functionality that
 reads model runs and produces either HTML- and PDF-documents using the
 Rmd-files via the core function <code>compareScenarios</code>.</p>
+<p>Internally, <code>compareScenarios()</code> calls
+<code>rmarkdown::render()</code> on <a href="https://github.com/pik-piam/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd">cs_main.Rmd</a>.
+This file loads the data from the mif-files, preprocesses the data, and
+includes the section-Rmd-files from the project library.</p>
 <p>Aside from HTML- and PDF-documents as output,
 <code>compareScenarios</code> also allows to obtain a copy of the
 Rmd-files needed to create these outputs (by setting the argument
@@ -393,12 +404,84 @@ Rmd-files is the possibility to change the plotting code without
 changing the code of the reporting library. Moreover, Rmd-files can be
 used interactively in RStudio.</p>
 </div>
-<div id="minimal-setup" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Minimal setup</h1>
-<p>…</p>
+<div id="getting-started" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Getting Started</h1>
+<div id="add-rmd-files-to-your-reporting-library" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Add Rmd files to your
+reporting library</h2>
+<p>Create a folder <code>inst/compareScenarios</code> in your reporting
+library and place one Rmd-file for each section in your document in this
+folder. The section-Rmd-files follow the naming pattern
+<code>cs_NN_XXXX.Rmd</code>, where <code>NN</code> is replaced by a two
+digit number and <code>XXXX</code> is replaced by a short name of the
+section.</p>
+<p>The Rmd-files usually contain chunks with plots. For plotting, we
+usually use the <a href="https://github.com/pik-piam/mip">mip</a>
+package or <code>ggplot</code>. The frameworks provides the
+<code>data</code> object containing your model runs and historical /
+reference data for plotting.</p>
+<p>The framework takes care of preprocessing your inputs. If you need
+additional code to be executed as part of the setup (e.g. calculation of
+additional data or defining custom functions), you can do so by placing
+a file <code>preprocessing.R</code> in the folder
+<code>inst/compareScenarios</code>.</p>
+<p>Once you have all the files in place, install your updated project
+library (or run <code>devtools::load_all()</code>).</p>
 </div>
-<div id="cs_main.rmd" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> cs_main.Rmd</h1>
+<div id="run-comparescenarios" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Run
+compareScenarios</h2>
+<p>A simple direct call of
+<code>piamPlotComparison::compareScenarios()</code> may look like
+this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(piamPlotComparison)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLibrary&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/Base.mif&quot;</span>, <span class="st">&quot;path/to/NDC.mif&quot;</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">mifHist =</span> <span class="st">&quot;path/to/historical.mif&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">outputFile =</span> <span class="st">&quot;CompareScenariosExample&quot;</span>)</span></code></pre></div>
+<p>This creates a pdf called <code>CompareScenariosExample.pdf</code>
+using two runs <code>Base.mif</code> and <code>NDC.mif</code>, rendering
+all the sections found in your project library
+<code>myProjectLibrary</code>.</p>
+<p>For further examples and a description of further optional arguments
+to the function, see
+<code>?piamPlotComparison::compareScenarios</code>.</p>
+</div>
+<div id="interactive-use-of-the-rmd-files" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Interactive use of
+the Rmd-files</h2>
+<p>In this section, we want to execute individual R-code chunks in the
+cs-Rmd-files interactively in RStudio. First, we need access to the
+Rmd-files by calling <code>piamPlotComparison::compareScenarios()</code>
+with <code>outputFormat = &quot;Rmd&quot;</code> to obtain a (modified) copy of
+the Rmd-files.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(piamPlotComparison)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>, <span class="st">&quot;path/to/scen3.mif&quot;</span>), <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">mifHist =</span> <span class="st">&quot;path/to/historical.mif&quot;</span>, <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">outputDir =</span> <span class="st">&quot;path/to/where/rmds/should/be/copied/to&quot;</span>, <span class="co"># </span><span class="al">TODO</span><span class="co">.</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">outputFormat =</span> <span class="st">&quot;Rmd&quot;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="co"># Add current time as output name to not overwrite other things:</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">outputFile =</span> <span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="st">&quot;CompScen2-%Y%m%d-%H%M%S&quot;</span>))</span></code></pre></div>
+<p>The code in these Rmd-files is structured in chunks and each chunk
+can be run separately by clicking on its play-button. We first open
+<code>cs_main.Rmd</code>. At the end of the file, there is a chunk</p>
+<pre><code>
+```r
+# CLICK &quot;RUN ALL CHUNKS ABOVE&quot; HERE TO PREPARE THE ENVIRONMENT
+```</code></pre>
+<p>Clicking on the <em>triangle above bar</em>-button on the right
+executes all chunks above and by that loads and prepares the data for
+plotting. After that we can open any section-Rmd-file and execute a
+chunk to create the respective plots. The plots should appear in RStudio
+inside the Rmd-file below the chunk.</p>
+</div>
+</div>
+<div id="structure-of-cs_main.rmd" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Structure of
+cs_main.Rmd</h1>
 <p>Internally, <code>compareScenarios()</code> calls
 <code>rmarkdown::render()</code> on certain Rmarkdown-files (Rmd-files).
 To be more precise, <code>rmarkdown::render()</code> is called on <a href="https://github.com/pik-piam/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd">cs_main.Rmd</a>.
@@ -509,10 +592,10 @@ the paths to the respective mif files. It also show if a scenario is
 renamed. Renaming can be forced by the user by using a named character
 vector as argument <code>mifScen</code> where the names indicate the new
 scenario name, e.g.,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="at">newName1 =</span> <span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="at">newName2 =</span> <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  ...)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="at">newName1 =</span> <span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="at">newName2 =</span> <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  ...)</span></code></pre></div>
 <p>Or, if two scenarios have the same name, they are renamed
 automatically.</p>
 <p>Furthermore, this section displays a description of each scenario.
@@ -527,11 +610,11 @@ be set in the <code>scenario_config*.csv</code>-file via a column
 <code>config.Rdata</code> files of the scenarios via the YAML-parameter
 <code>cfgScen</code>, an analysis of the configurations of the scenarios
 is shown.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">cfgScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1/config.RData&quot;</span>, <span class="st">&quot;path/to/scen2/config.RData&quot;</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  ...)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">compareScenarios</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="at">projectLibrary =</span> <span class="st">&quot;myProjectLib&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">mifScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1.mif&quot;</span>, <span class="st">&quot;path/to/scen2.mif&quot;</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">cfgScen =</span> <span class="fu">c</span>(<span class="st">&quot;path/to/scen1/config.RData&quot;</span>, <span class="st">&quot;path/to/scen2/config.RData&quot;</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  ...)</span></code></pre></div>
 </div>
 </div>
 </div>
