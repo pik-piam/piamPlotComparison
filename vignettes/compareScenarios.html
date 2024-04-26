@@ -346,7 +346,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="TOC">
 <ul>
 <li><a href="#overview" id="toc-overview"><span class="toc-section-number">1</span> Overview</a></li>
-<li><a href="#usage" id="toc-usage"><span class="toc-section-number">2</span> Usage</a></li>
+<li><a href="#minimal-setup" id="toc-minimal-setup"><span class="toc-section-number">2</span> Minimal setup</a></li>
 <li><a href="#cs_main.rmd" id="toc-cs_main.rmd"><span class="toc-section-number">3</span> cs_main.Rmd</a>
 <ul>
 <li><a href="#yaml-header" id="toc-yaml-header"><span class="toc-section-number">3.1</span> YAML-header</a></li>
@@ -374,35 +374,38 @@ Info</a></li>
 
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
-<p>Internally, <code>compareScenarios()</code> calls
-<code>rmarkdown::render()</code> on certain Rmarkdown-files (Rmd-files).
-.<br />
-To be more precise, <code>rmarkdown::render()</code> is called on <a href="https://github.com/fbenke-pik/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd">cs_main.Rmd</a>
-of the piamPlotComparison package, which includes other Rmd-files - one
-for each section of the output document. The loading and preprocessing
-of data happens in <code>cs_main.Rmd</code>; the section Rmd-files
-mostly call plot functions.</p>
+<p><code>piamPlotComparison</code> is a lightweight framework to
+visually compare the results of multiple runs of models, such as <a href="https://github.com/remindmodel/remind">REMIND</a> or <a href="https://github.com/pik-piam/edgeTransport">EDGE-T</a>.</p>
+<p>It is used in conjunction with a reporting library, such as <a href="https://github.com/pik-piam/remind2">remind2</a> or <a href="https://github.com/pik-piam/reporttransport">reporttransport</a>.
+The reporting library includes Rmarkdown-files (Rmd-files) with R-code
+(e.g., for creating plots, creating tables) as well as descriptive text
+following some conventions. The framework offers functionality that
+reads model runs and produces either HTML- and PDF-documents using the
+Rmd-files via the core function <code>compareScenarios</code>.</p>
 <p>Aside from HTML- and PDF-documents as output,
-<code>compareScenarios()</code> also allows to obtain a copy of the
+<code>compareScenarios</code> also allows to obtain a copy of the
 Rmd-files needed to create these outputs (by setting the argument
 <code>outputFormat = &quot;Rmd&quot;</code>). Rendering the resulting Rmd-files to
 PDF or HTML yields the same documents as calls to
 <code>compareScenarios()</code> with <code>outputFormat = &quot;PDF&quot;</code>
 or <code>&quot;HTML&quot;</code>. The advantage of being able to access these
 Rmd-files is the possibility to change the plotting code without
-changing the code of the <code>remind2</code>-package. Moreover,
-Rmd-files can be used interactively in RStudio.</p>
+changing the code of the reporting library. Moreover, Rmd-files can be
+used interactively in RStudio.</p>
 </div>
-<div id="usage" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Usage</h1>
+<div id="minimal-setup" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Minimal setup</h1>
 <p>…</p>
 </div>
 <div id="cs_main.rmd" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> cs_main.Rmd</h1>
-<p>This file loads the data from the mif-files, preprocesses the data,
-and includes the section-Rmd-files at the very end (and optionally
-further Rmd-files provided by the user, see YAML-parameter
-<code>userSectionPath</code>).</p>
+<p>Internally, <code>compareScenarios()</code> calls
+<code>rmarkdown::render()</code> on certain Rmarkdown-files (Rmd-files).
+To be more precise, <code>rmarkdown::render()</code> is called on <a href="https://github.com/pik-piam/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd">cs_main.Rmd</a>.
+This file loads the data from the mif-files, preprocesses the data, and
+includes the section-Rmd-files from the project library at the very end
+(and optionally further Rmd-files provided by the user, see
+YAML-parameter <code>userSectionPath</code>).</p>
 <div id="yaml-header" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> YAML-header</h2>
 <p>The file <code>cs_main.Rmd</code> starts with a YAML header marked by

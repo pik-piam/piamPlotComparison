@@ -6,10 +6,10 @@
 #' choose Rmd as output format and obtain a copy of the *.Rmd-files.
 #'
 #' @param projectLibrary \code{NULL} or \code{character(n)}. Default: \code{NULL}.
-#'   An R library containing Rmd files that could be included. You can further filter
-#'   the sections to be rendered using the \code{sections} YAML parameter.
-#'   Expects the Rmd files must be placed in a folder \code{inst/compareScenarios}.
-#'   Files must have the format \code{cs_[NUMBER]_*.Rmd} to be considered.
+#'   An R reporting library containing Rmd files to be included.
+#'   You can further filter the sections to be rendered using the \code{sections} YAML parameter.
+#'   The Rmd files must be placed in a folder \code{inst/compareScenarios}.
+#'   Files must have the format \code{cs_NN_XXXX.Rmd} to be considered.
 #'   If the folder contains a file \code{preprocessing.Rmd}, it will be executed
 #'   before rendering the sections.
 #' @param mifScen \code{character(n)}, optionally named. Paths to scenario mifs.
@@ -95,11 +95,13 @@
 #' \dontrun{
 #' # Simple use. Creates PDF:
 #' compareScenarios(
+#'   projectLibrary = "mylib",
 #'   mifScen = c("path/to/Base.mif", "path/to/NDC.mif"),
 #'   mifHist = "path/to/historical.mif",
 #'   outputFile = "CompareScenariosExample")
 #' # More complex use. Creates folder with Rmds:
 #' compareScenarios(
+#'   projectLibrary = "mylib",
 #'   mifScen = c(ScenarioName1 = "path/to/scen1.mif", ScenarioName2 = "path/to/scen2.mif"),
 #'   mifHist = "path/to/historical.mif",
 #'   cfgScen = c("path/to/scen1/config.RData", "path/to/scen2/config.RData"),
@@ -111,6 +113,7 @@
 #'   userSectionPath = "path/to/myPlots.Rmd")
 #' # Use in development. Load data into global environment:
 #' compareScenarios(
+#'   projectLibrary = "mylib",
 #'   mifScen = c("path/to/scen1.mif", "path/to/scen2.mif"),
 #'   mifHist = "path/to/historical.mif",
 #'   outputFile = format(Sys.time(), "cs2_load_%Y%m%d-%H%M%S"),
@@ -119,8 +122,9 @@
 #' }
 #' @export
 compareScenarios <- function(
-    mifScen, mifHist,
     projectLibrary = NULL,
+    mifScen,
+    mifHist,
     outputDir = getwd(),
     outputFile = "CompareScenarios",
     outputFormat = "PDF",

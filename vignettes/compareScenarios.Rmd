@@ -22,19 +22,19 @@ knitr::opts_chunk$set(
 
 # Overview
 
-Internally, `compareScenarios()` calls `rmarkdown::render()` on certain Rmarkdown-files (Rmd-files). .  
-To be more precise, `rmarkdown::render()` is called on [cs_main.Rmd](https://github.com/fbenke-pik/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd) of the piamPlotComparison package, which includes other Rmd-files - one for each section of the output document.
-The loading and preprocessing of data happens in `cs_main.Rmd`; the section Rmd-files mostly call plot functions.
+`piamPlotComparison` is a lightweight framework to visually compare the results of multiple runs of models, such as [REMIND](https://github.com/remindmodel/remind) or [EDGE-T](https://github.com/pik-piam/edgeTransport).
 
-Aside from HTML- and PDF-documents as output, `compareScenarios()` also allows to obtain a copy of the Rmd-files needed to create these outputs (by setting the argument `outputFormat = "Rmd"`). Rendering the resulting Rmd-files to PDF or HTML yields the same documents as calls to `compareScenarios()` with `outputFormat = "PDF"` or `"HTML"`. The advantage of being able to access these Rmd-files is the possibility to change the plotting code without changing the code of the `remind2`-package. Moreover, Rmd-files can be used interactively in RStudio.
+It is used in conjunction with a reporting library, such as [remind2](https://github.com/pik-piam/remind2) or [reporttransport](https://github.com/pik-piam/reporttransport). The reporting library includes Rmarkdown-files (Rmd-files) with R-code (e.g., for creating plots, creating tables) as well as descriptive text following some conventions. The framework offers functionality that reads model runs and produces either HTML- and PDF-documents using the Rmd-files via the core function `compareScenarios`.
 
-# Usage
+Aside from HTML- and PDF-documents as output, `compareScenarios` also allows to obtain a copy of the Rmd-files needed to create these outputs (by setting the argument `outputFormat = "Rmd"`). Rendering the resulting Rmd-files to PDF or HTML yields the same documents as calls to `compareScenarios()` with `outputFormat = "PDF"` or `"HTML"`. The advantage of being able to access these Rmd-files is the possibility to change the plotting code without changing the code of the reporting library. Moreover, Rmd-files can be used interactively in RStudio.
+
+# Minimal setup
 
 ...
 
 # cs_main.Rmd
 
-This file loads the data from the mif-files, preprocesses the data, and includes the section-Rmd-files at the very end (and optionally further Rmd-files provided by the user, see YAML-parameter `userSectionPath`).
+Internally, `compareScenarios()` calls `rmarkdown::render()` on certain Rmarkdown-files (Rmd-files). To be more precise, `rmarkdown::render()` is called on [cs_main.Rmd](https://github.com/pik-piam/piamPlotComparison/blob/master/inst/compareScenarios/cs_main.Rmd). This file loads the data from the mif-files, preprocesses the data, and includes the section-Rmd-files from the project library at the very end (and optionally further Rmd-files provided by the user, see YAML-parameter `userSectionPath`).
 
 ## YAML-header
 
