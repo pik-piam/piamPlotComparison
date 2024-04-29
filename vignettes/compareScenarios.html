@@ -360,6 +360,7 @@ Rmd-files</a></li>
 <li><a href="#loading" id="toc-loading"><span class="toc-section-number">3.2</span> Loading</a></li>
 <li><a href="#preprocessing" id="toc-preprocessing"><span class="toc-section-number">3.3</span> Preprocessing</a></li>
 <li><a href="#global-variables" id="toc-global-variables"><span class="toc-section-number">3.4</span> Global Variables</a></li>
+<li><a href="#custom-code" id="toc-custom-code"><span class="toc-section-number">3.5</span> Custom Code</a></li>
 </ul></li>
 <li><a href="#section-rmd-files" id="toc-section-rmd-files"><span class="toc-section-number">4</span> Section-Rmd-files</a>
 <ul>
@@ -382,7 +383,7 @@ Info</a></li>
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
 <p><code>piamPlotComparison</code> is a lightweight framework to
-visually compare the results of multiple runs of models, such as <a href="https://github.com/remindmodel/remind">REMIND</a> or <a href="https://github.com/pik-piam/edgeTransport">EDGE-T</a>.</p>
+visually compare the results of multiple runs of IAMs, such as <a href="https://github.com/remindmodel/remind">REMIND</a> or <a href="https://github.com/pik-piam/edgeTransport">EDGE-T</a>.</p>
 <p>It is used in conjunction with a reporting library, such as <a href="https://github.com/pik-piam/remind2">remind2</a> or <a href="https://github.com/pik-piam/reporttransport">reporttransport</a>.
 The reporting library includes Rmarkdown-files (Rmd-files) with R-code
 (e.g., for creating plots, creating tables) as well as descriptive text
@@ -424,7 +425,7 @@ reference data for plotting.</p>
 additional code to be executed as part of the setup (e.g. calculation of
 additional data or defining custom functions), you can do so by placing
 a file <code>preprocessing.R</code> in the folder
-<code>inst/compareScenarios</code>.</p>
+<code>inst/compareScenarios</code> in your reporting library.</p>
 <p>Once you have all the files in place, install your updated project
 library (or run <code>devtools::load_all()</code>).</p>
 </div>
@@ -530,10 +531,6 @@ See also <code>piamutils::deletePlus</code>. An additional column
 original name including <code>+</code>. This column is used by
 <code>mip::showAreaAndBarPlotsPlus()</code>.</li>
 </ul>
-<p>If you need to execute any additional code as part of the general
-setup, put it into a file
-<code>inst/compareScenarios/preprocessing.R</code> in the project
-library. Custom code will be executed after the general code.</p>
 </div>
 <div id="global-variables" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Global Variables</h2>
@@ -554,6 +551,13 @@ argument, e.g., <code>mainReg</code> with default value
 <code>getOption(&quot;mip.mainReg&quot;)</code>. Thus, this argument does not have
 to be stated for each call of the plot function (assuming the respective
 call of <code>options()</code> sets it to the right value).</p>
+</div>
+<div id="custom-code" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Custom Code</h2>
+<p>If you need to execute any additional code as part of the general
+setup, put it into a file
+<code>inst/compareScenarios/preprocessing.R</code> in your project
+library. Custom code will be executed after the general code.</p>
 <p>If you want to set <code>mip.histRefModel</code>, please do so in the
 <code>preprocessing.R</code> file of your project library.</p>
 </div>
@@ -588,7 +592,7 @@ files <code>cs_00_info.Rmd</code> and
 <div id="info" class="section level3 unnumbered">
 <h3 class="unnumbered">0 Info</h3>
 <p>This section contains a file reference table with scenario names and
-the paths to the respective mif files. It also show if a scenario is
+the paths to the respective mif files. It also shows if a scenario is
 renamed. Renaming can be forced by the user by using a named character
 vector as argument <code>mifScen</code> where the names indicate the new
 scenario name, e.g.,</p>
@@ -625,7 +629,7 @@ is shown.</p>
 <p>The section Rmd-files mostly consist of simple calls of a
 <code>show...()</code>-function from the the <a href="https://github.com/pik-piam/mip">mip</a> package. These functions
 are designed to make the creation of re-occurring kinds of plots in
-<code>comapreSceanrios</code> simple. Alternatively, one can build
+<code>comapreScenarios</code> simple. Alternatively, one can build
 custom plots using <code>ggplot2</code>.</p>
 <p>The <code>mip</code>-package contains following default plot
 functions for <code>comapareScenarios</code>:</p>
