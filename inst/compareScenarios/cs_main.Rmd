@@ -128,7 +128,7 @@ if (!is.null(params$cfgScen)) {
 dataScenNested <-
   tibble(path = unname(params$mifScen)) %>%
   rowid_to_column("fileid") %>%
-  mutate(data = map(path, read.quitte)) %>%
+  mutate(data = map(path, read.quitte, check.duplicates = FALSE)) %>%
   unnest(data) %>%
   nest(data = -c(fileid, path, scenario))
 
@@ -184,7 +184,7 @@ bkgndColors <- vapply(scenarioColors, lightenColor, rgb(0, 0, 0), by = 0.5)
 ```{r read historical mif}
 dataHist <-
   params$mifHist %>%
-  read.quitte(factors = TRUE)
+  read.quitte(factors = TRUE, drop.na = TRUE, check.duplicates = FALSE)
 ```
 
 
