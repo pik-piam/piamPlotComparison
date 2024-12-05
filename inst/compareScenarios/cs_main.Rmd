@@ -172,7 +172,18 @@ dataScen <-
 ```{r define scenario colors}
 # Get colors of scenarios to be used, e.g., in the info sections.
 # They will coincide with the colors of the scenarios in line plots.
-scenarioColors <- plotstyle(fileReference$newScenarioName)
+
+goodColors <- c(
+  "#e6194B", "#3cb44b", "#4363d8",
+  "#f58231", "#911eb4", "#469990", "#9A6324",
+  "#800000", "#808000", "#000075", "#f032e6",
+  "#ffd610", "#404040", "#42d4f4", "#bfef45",
+  "#B0B0B0", "#dcbeff", "#aaffc3", "#fabed4"
+)
+
+scenarioColors <- goodColors[seq_along(fileReference$newScenarioName)]
+names(scenarioColors) <- fileReference$newScenarioName
+
 lightenColor <- function(clr, by) {
   colRGB <- colorRamp(c(clr, "white"))(by)
   rgb(colRGB[1], colRGB[2], colRGB[3], maxColorValue = 255)
@@ -284,7 +295,7 @@ data <- as.quitte(data)
 
 varNames <- c(
   "availableSections", "dataScenNested", "env", "envToolsRstudio",
-  "fn", "insertExprAtStartOfFun", "lightenColor", "loadCfg", "matches", 
+  "fn", "insertExprAtStartOfFun", "lightenColor", "loadCfg", "matches",
   "oldRsSetNotebookGraphicsOption")
 for (vn in varNames) if (exists(vn)) rm(list = vn)
 rm(varNames)
