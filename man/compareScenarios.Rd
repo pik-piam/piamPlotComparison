@@ -7,7 +7,7 @@
 compareScenarios(
   projectLibrary = NULL,
   mifScen,
-  mifHist,
+  mifHist = NULL,
   outputDir = getwd(),
   outputFile = "CompareScenarios",
   outputFormat = "PDF",
@@ -29,7 +29,7 @@ before rendering the sections.}
 If the vector has names, those are used to refer to the scenarios in the
 output file.}
 
-\item{mifHist}{\code{character(1)}. Path to historical mif.}
+\item{mifHist}{\code{character(1)}. Path to historical mif or \code{NULL}.}
 
 \item{outputDir}{\code{character(1)}. The directory where the output document
 and intermediary files are created.}

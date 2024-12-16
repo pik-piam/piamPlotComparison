@@ -22,7 +22,7 @@ params:
   mifScen: ""
   mifScenNames: null
   cfgScen: null
-  mifHist: ""
+  mifHist: null
   yearsScen: !r c(seq(2005, 2060, 5), seq(2070, 2100, 10))
   yearsHist: !r c(seq(1960, 2024, 1), seq(2025, 2100, 5))
   yearsBarPlot: !r c(2020, 2030, 2050, 2100)
@@ -182,9 +182,13 @@ bkgndColors <- vapply(scenarioColors, lightenColor, rgb(0, 0, 0), by = 0.5)
 
 
 ```{r read historical mif}
-dataHist <-
-  params$mifHist %>%
-  read.quitte(factors = TRUE, drop.na = TRUE, check.duplicates = FALSE)
+if (is.null(params$mifHist)) {
+  dataHist <- NULL
+} else {
+  dataHist <-
+    params$mifHist %>%
+    read.quitte(factors = TRUE, drop.na = TRUE, check.duplicates = FALSE)
+}
 ```
 
 
@@ -194,13 +198,17 @@ dataScen <-
   dataScen %>%
   filter(period %in% params$yearsScen)
 
-dataHist <-
-  dataHist %>%
-  filter(period %in% params$yearsHist, !(model %in% params$modelsHistExclude), !is.na(value)) %>%
-  droplevels()
+if (!is.null(dataHist)) {
+  dataHist <-
+    dataHist %>%
+    filter(period %in% params$yearsHist, !(model %in% params$modelsHistExclude), !is.na(value)) %>%
+    droplevels()
 
-# Combine into one data frame.
-data <- bind_rows(dataScen, dataHist)
+  # Combine into one data frame.
+  data <- bind_rows(dataScen, dataHist)
+} else {
+  data <- dataScen
+}
 
 data <-
   data %>%

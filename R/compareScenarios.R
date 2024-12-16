@@ -15,7 +15,7 @@
 #' @param mifScen \code{character(n)}, optionally named. Paths to scenario mifs.
 #'   If the vector has names, those are used to refer to the scenarios in the
 #'   output file.
-#' @param mifHist \code{character(1)}. Path to historical mif.
+#' @param mifHist \code{character(1)}. Path to historical mif or \code{NULL}.
 #' @param outputFile \code{character(1)}. File name (without extension) of the
 #'   output document to be created.
 #' @param outputDir \code{character(1)}. The directory where the output document
@@ -124,7 +124,7 @@
 compareScenarios <- function(
     projectLibrary = NULL,
     mifScen,
-    mifHist,
+    mifHist = NULL,
     outputDir = getwd(),
     outputFile = "CompareScenarios",
     outputFormat = "PDF",
@@ -136,9 +136,11 @@ compareScenarios <- function(
   yamlParams <- c(
     list(
       mifScen = normalizePath(mifScen, mustWork = TRUE),
-      mifScenNames = names(mifScen),
-      mifHist = normalizePath(mifHist, mustWork = TRUE)),
+      mifScenNames = names(mifScen)),
     list(...))
+  if (!is.null(mifHist)) {
+    yamlParams$mifHist <- normalizePath(mifHist, mustWork = TRUE)
+  }
   if (!is.null(yamlParams[["cfgScen"]])) {
     yamlParams$cfgScen <- normalizePath(yamlParams$cfgScen, mustWork = TRUE)
   }
