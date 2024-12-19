@@ -168,6 +168,8 @@ compareScenarios <- function(
               outputDir, recursive = TRUE)
   }
 
+  Sys.chmod(outputDir)
+
   rmarkdown::render(
     templateInOutputDir,
     intermediates_dir = outputDir,
@@ -221,6 +223,7 @@ compareScenarios <- function(
     invert = TRUE, value = TRUE)
 
   file.copy(rmdDirFiles, pathDir)
+  Sys.chmod(pathDir)
 
   ymlthis::use_rmarkdown(
     newYaml,
