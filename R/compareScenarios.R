@@ -168,7 +168,8 @@ compareScenarios <- function(
               outputDir, recursive = TRUE)
   }
 
-  Sys.chmod(outputDir)
+  # avoid potential problems with write permissions on the copied files
+  Sys.chmod(list.files(outputDir, full.names = TRUE))
 
   rmarkdown::render(
     templateInOutputDir,
@@ -223,7 +224,9 @@ compareScenarios <- function(
     invert = TRUE, value = TRUE)
 
   file.copy(rmdDirFiles, pathDir)
-  Sys.chmod(pathDir)
+
+  # avoid potential problems with write permissions on the copied files
+  Sys.chmod(list.files(pathDir, full.names = TRUE))
 
   ymlthis::use_rmarkdown(
     newYaml,
