@@ -1,6 +1,6 @@
 # Create comparison plots for your model results
 
-R package **piamPlotComparison**, version **0.1.0**
+R package **piamPlotComparison**, version **0.1.1**
 
 [![CRAN status](https://www.r-pkg.org/badges/version/piamPlotComparison)](https://cran.r-project.org/package=piamPlotComparison) [![R build status](https://github.com/pik-piam/piamPlotComparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamPlotComparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamPlotComparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamPlotComparison) [![r-universe](https://pik-piam.r-universe.dev/badges/piamPlotComparison)](https://pik-piam.r-universe.dev/builds)
 
@@ -46,16 +46,17 @@ In case of questions / problems please contact Falk Benke <benke@pik-potsdam.de>
 
 To cite package **piamPlotComparison** in publications use:
 
-Benke F, Schoetz C (2024). _piamPlotComparison: Create comparison plots for your model results_. R package version 0.1.0, <https://github.com/pik-piam/piamPlotComparison>.
+Benke F, Schoetz C (2024). "piamPlotComparison: Create comparison plots for your model results." Version: 0.1.1, <https://github.com/pik-piam/piamPlotComparison>.
 
 A BibTeX entry for LaTeX users is
 
  ```latex
-@Manual{,
+@Misc{,
   title = {piamPlotComparison: Create comparison plots for your model results},
   author = {Falk Benke and Christof Schoetz},
+  date = {2024-12-19},
   year = {2024},
-  note = {R package version 0.1.0},
   url = {https://github.com/pik-piam/piamPlotComparison},
+  note = {Version: 0.1.1},
 }
 ```
