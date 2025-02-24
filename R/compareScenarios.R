@@ -168,6 +168,8 @@ compareScenarios <- function(
               outputDir, recursive = TRUE)
   }
 
+  outputDir <- file.path(outputDir, "compareScenarios")
+
   # avoid potential problems with write permissions on the copied files
   Sys.chmod(list.files(outputDir, full.names = TRUE))
 
@@ -182,7 +184,7 @@ compareScenarios <- function(
     quiet = quiet
   )
 
-  unlink(file.path(outputDir, "compareScenarios"), recursive = TRUE)
+  unlink(outputDir, recursive = TRUE)
 }
 
 # Copies the CompareScenarios-Rmds to the specified location and modifies
