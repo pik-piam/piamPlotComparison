@@ -3,7 +3,7 @@ message: If you use this software, please cite it using the metadata from this f
 type: software
 title: 'piamPlotComparison: Create comparison plots for your model results'
 version: 0.1.2
-date-released: '2025-02-24'
+date-released: '2025-02-26'
 abstract: A frameworks to create comparison plots for your model results.
 authors:
 - family-names: Benke

@@ -150,9 +150,9 @@ compareScenarios <- function(
 
   outputFormat <- tolower(outputFormat)[[1]]
   if (outputFormat == "pdf") {
-    outputFormat <- "pdf_document"
+    outputFormatRmarkdown <- "pdf_document"
   } else if (outputFormat == "html") {
-    outputFormat <- "html_document"
+    outputFormatRmarkdown <- "html_document"
   } else if (outputFormat == "rmd") {
     return(.compareScenarios2Rmd(projectLibrary, yamlParams, outputDir, outputFile))
   }
@@ -168,23 +168,27 @@ compareScenarios <- function(
               outputDir, recursive = TRUE)
   }
 
-  outputDir <- file.path(outputDir, "compareScenarios")
-
   # avoid potential problems with write permissions on the copied files
   Sys.chmod(list.files(outputDir, full.names = TRUE))
 
+  # there are issues with tinytex that currently cause a crash when setting
+  # output_dir directly.
+
   rmarkdown::render(
     templateInOutputDir,
-    intermediates_dir = outputDir,
-    output_dir = outputDir,
+    # output_dir = outputDir,
     output_file = outputFile,
-    output_format = outputFormat,
+    output_format = outputFormatRmarkdown,
     params = yamlParams,
     envir = envir,
     quiet = quiet
   )
 
-  unlink(outputDir, recursive = TRUE)
+  # manually copy generated file to outputDir until tinytex is fixed
+  file.copy(file.path(outputDir, "compareScenarios", paste0(outputFile, ".", outputFormat)),
+            outputDir, recursive = TRUE)
+
+  unlink(file.path(outputDir, "compareScenarios"), recursive = TRUE)
 }
 
 # Copies the CompareScenarios-Rmds to the specified location and modifies

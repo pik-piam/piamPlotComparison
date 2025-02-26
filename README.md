@@ -54,7 +54,7 @@ A BibTeX entry for LaTeX users is
 @Misc{,
   title = {piamPlotComparison: Create comparison plots for your model results},
   author = {Falk Benke and Christof Schoetz},
-  date = {2025-02-24},
+  date = {2025-02-26},
   year = {2025},
   url = {https://github.com/pik-piam/piamPlotComparison},
   note = {Version: 0.1.2},
