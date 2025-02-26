@@ -172,7 +172,7 @@ compareScenarios <- function(
   Sys.chmod(list.files(outputDir, full.names = TRUE))
 
   # there are issues with tinytex that currently cause a crash when setting
-  # output_dir directly.
+  # output_dir directly. see https://github.com/rstudio/rmarkdown/issues/2589
 
   rmarkdown::render(
     templateInOutputDir,
