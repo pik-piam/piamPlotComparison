@@ -161,11 +161,11 @@ compareScenarios <- function(
   # rmarkdown writes to the folder containing the template.
   templateInOutputDir <- file.path(outputDir, "compareScenarios", "cs_main.Rmd")
   file.copy(piamutils::getSystemFile("compareScenarios", package = "piamPlotComparison"),
-            outputDir, recursive = TRUE)
+            outputDir, recursive = TRUE, copy.mode = FALSE)
 
   if (!is.null(projectLibrary)) {
     file.copy(piamutils::getSystemFile("compareScenarios", package = projectLibrary),
-              outputDir, recursive = TRUE)
+              outputDir, recursive = TRUE, copy.mode = FALSE)
   }
 
   # avoid potential problems with write permissions on the copied files
@@ -223,7 +223,7 @@ compareScenarios <- function(
     pattern = "cs_main\\.Rmd$",
     invert = TRUE, value = TRUE)
 
-  file.copy(rmdDirFiles, pathDir)
+  file.copy(rmdDirFiles, pathDir, copy.mode = FALSE)
 
   # avoid potential problems with write permissions on the copied files
   Sys.chmod(list.files(pathDir, full.names = TRUE))
