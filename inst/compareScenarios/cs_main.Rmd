@@ -7,7 +7,6 @@ output:
     number_sections: yes
     toc_depth: 6
     keep_tex: false
-    template: cs_latex_template.tex
     extra_dependencies: ["float"]
     includes: 
       in_header: cs_pdf_header_include.tex
