@@ -31,7 +31,8 @@ params:
   sections: "all"
   userSectionPath: null
   mainReg: "World"
-  figWidth: 15 
+  validationConfig: null
+  figWidth: 15
   figHeight: 10
   warning: FALSE
 ---

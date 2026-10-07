@@ -110,6 +110,13 @@ choose Rmd as output format and obtain a copy of the *.Rmd-files.
     \code{character(1)}.
     Default: \code{"World"}.
     A region for which larger plots are shown.}
+  \item{\code{validationConfig}}{
+    \code{NULL} or \code{character(1)}.
+    Default: \code{NULL}.
+    Name of or path to a \code{piamValidation} config. If provided and
+    supported by the project library, validation thresholds are computed
+    via \code{piamValidation::validateScenarios()} and shown as colored
+    background bands in line plots.}
   \item{\code{figWidth, figHeight}}{
     \code{numeric(1)}.
     Default: \code{15} and \code{10}, respectively.
