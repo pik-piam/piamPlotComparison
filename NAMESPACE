@@ -4,19 +4,23 @@ export(calcTimeSeriesStats)
 export(compareScenarios)
 export(getCs2Profiles)
 export(showStatsTable)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,across)
-importFrom(dplyr,all_of)
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,distinct)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,select)
-importFrom(dplyr,summarize)
+importFrom(dplyr,
+  "%>%",
+  across,
+  all_of,
+  arrange,
+  bind_rows,
+  distinct,
+  filter,
+  group_by,
+  left_join,
+  mutate,
+  select,
+  summarize
+)
 importFrom(piamutils,getSystemFile)
-importFrom(rlang,.data)
-importFrom(rlang,.env)
+importFrom(rlang,
+  .data,
+  .env
+)
 importFrom(tidyr,pivot_wider)

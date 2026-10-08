@@ -26,6 +26,45 @@ cat(
   ".\n\n")
 ```
 
+```{r results='asis'}
+# If a validation config is given in the parameter validationConfig, report
+# which config was used and how many threshold bands were computed by the
+# preprocessing of the project library (see option mip.validationThresholds).
+# For configs listed in validationConfigDocs, a link to the rendered config
+# documentation on the piamValidation website is added in a separate row.
+validationConfigDocs <- c(
+  AMT = "https://pik-piam.github.io/piamValidation/articles/configs/validationConfig_REMIND.html")
+
+if (!is.null(params$validationConfig)) {
+  if (file.exists(params$validationConfig)) {
+    cfgText <- paste0(
+      "`", str_replace_all(params$validationConfig, fixed("\\"), "/"), "`")
+  } else {
+    cfgText <- paste0("`validationConfig_", params$validationConfig, ".csv`")
+  }
+  validationThresholds <- getOption("mip.validationThresholds")
+  if (is.null(validationThresholds) || nrow(validationThresholds) == 0) {
+    cat(
+      "No validation thresholds could be computed from the validation config ",
+      cfgText, ". Line plots do not show threshold bands, see the rendering ",
+      "log for warnings.\n\n", sep = "")
+  } else {
+    cat(
+      "Line plots show validation thresholds from the validation config ",
+      cfgText, " as colored background bands where variable, unit, region ",
+      "and period match the plotted data (",
+      length(unique(validationThresholds$variable)), " variables, ",
+      nrow(validationThresholds), " variable-region-period combinations).\n\n",
+      sep = "")
+  }
+  if (params$validationConfig %in% names(validationConfigDocs)) {
+    cat(
+      "Config documentation: <",
+      validationConfigDocs[[params$validationConfig]], ">\n\n", sep = "")
+  }
+}
+```
+
 
 ```{r results='asis'}
 # If paths to config files are provided in the parameter cfgScen, their

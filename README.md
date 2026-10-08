@@ -1,8 +1,8 @@
 # Create comparison plots for your model results
 
-R package **piamPlotComparison**, version **0.1.5**
+R package **piamPlotComparison**, version **0.2.0**
 
-[![CRAN status](https://www.r-pkg.org/badges/version/piamPlotComparison)](https://cran.r-project.org/package=piamPlotComparison) [![R build status](https://github.com/pik-piam/piamPlotComparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamPlotComparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamPlotComparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamPlotComparison) [![r-universe](https://pik-piam.r-universe.dev/badges/piamPlotComparison)](https://pik-piam.r-universe.dev/builds)
+   [![R build status](https://github.com/pik-piam/piamPlotComparison/workflows/check/badge.svg)](https://github.com/pik-piam/piamPlotComparison/actions) [![codecov](https://codecov.io/gh/pik-piam/piamPlotComparison/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/piamPlotComparison) [![r-universe](https://pik-piam.r-universe.dev/badges/piamPlotComparison)](https://pik-piam.r-universe.dev/builds)
 
 ## Purpose and Functionality
 
@@ -20,13 +20,13 @@ The additional repository can be made available permanently by adding the line a
 
 After that the most recent version of the package can be installed using `install.packages`:
 
-```r 
+```r
 install.packages("piamPlotComparison")
 ```
 
 Package updates can be installed using `update.packages` (make sure that the additional repository has been added before running that command):
 
-```r 
+```r
 update.packages()
 ```
 
@@ -46,7 +46,7 @@ In case of questions / problems please contact Falk Benke <benke@pik-potsdam.de>
 
 To cite package **piamPlotComparison** in publications use:
 
-Benke F, Schoetz C (2026). "piamPlotComparison: Create comparison plots for your model results." Version: 0.1.5, <https://github.com/pik-piam/piamPlotComparison>.
+Benke F, Schoetz C (2026). "piamPlotComparison: Create comparison plots for your model results." Version: 0.2.0, <https://github.com/pik-piam/piamPlotComparison>.
 
 A BibTeX entry for LaTeX users is
 
@@ -54,9 +54,9 @@ A BibTeX entry for LaTeX users is
 @Misc{,
   title = {piamPlotComparison: Create comparison plots for your model results},
   author = {Falk Benke and Christof Schoetz},
-  date = {2026-01-29},
+  date = {2026-10-07},
   year = {2026},
   url = {https://github.com/pik-piam/piamPlotComparison},
-  note = {Version: 0.1.5},
+  note = {Version: 0.2.0},
 }
 ```

@@ -10,3 +10,6 @@
 ^.lintr$
 ^tests/.lintr$
 ^vignettes/.lintr$
+^CODE_STYLE\.md$
+^\.claude$
+^_pkgdown\.yml$
